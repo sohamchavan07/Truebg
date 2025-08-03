@@ -19,13 +19,11 @@
 #
 class Verification < ApplicationRecord
     belongs_to :user
-  
+
     VERIFICATION_TYPES = %w[email phone id_document].freeze
     STATUSES = %w[pending approved rejected].freeze
-  
+
     # Validations
     validates :verification_type, presence: true, length: { maximum: 255 }, inclusion: { in: VERIFICATION_TYPES }
-    validates :status,inclusion: { in: STATUSES },  allow_nil: true
-   
-  end
-  
+    validates :status, inclusion: { in: STATUSES },  allow_nil: true
+end
