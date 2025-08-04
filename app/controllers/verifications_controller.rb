@@ -9,6 +9,16 @@ class VerificationsController < ApplicationController
     render layout: false
   end
 
+  def connect_digilocker
+    # This action will render the connect_digilocker view
+    render layout: false
+  end
+
+  def primary_details
+    # This action will render the primary_details view
+    render layout: false
+  end
+
   def send_otp
     # Get phone number from params
     phone = params[:phone]
@@ -41,9 +51,8 @@ class VerificationsController < ApplicationController
       session.delete(:otp)
       session[:phone_verified] = true
 
-      # TODO: Redirect to the next step in your verification flow
-      # For now, redirect to root with success message
-      redirect_to root_path, notice: "Phone number verified successfully!"
+      # Redirect to connect_digilocker page
+      redirect_to verifications_connect_digilocker_path, notice: "Phone number verified successfully!"
     else
       # OTP is incorrect
       redirect_to verifications_otp_verification_path, alert: "Invalid OTP. Please try again."

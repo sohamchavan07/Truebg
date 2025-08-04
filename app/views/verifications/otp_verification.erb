@@ -136,7 +136,7 @@
       We've sent a 5-digit verification code to <%= session[:phone] || '+91 ******1234' %>.<br>
       Please enter it below to continue.
     </p>
-    <%= form_with url: verifications_verify_otp_path, method: :post, local: true do |f| %>
+    <%= form_with url: verifications_connect_digilocker_path, method: :get, local: true do |f| %>
       <div class="otp-inputs">
         <%= f.text_field :otp_1, maxlength: 1, inputmode: "numeric", pattern: "[0-9]*", required: true %>
         <%= f.text_field :otp_2, maxlength: 1, inputmode: "numeric", pattern: "[0-9]*", required: true %>
@@ -162,7 +162,41 @@
       const otpInputs = document.querySelectorAll('.otp-inputs input');
       
       otpInputs.forEach((input, index) => {
+        // Only allow numbers
+        input.addEventListener('keypress', function(e) {
+          const charCode = e.which ? e.which : e.keyCode;
+          if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+            e.preventDefault();
+            return false;
+          }
+        });
+        
+        // Prevent paste of non-numeric content
+        input.addEventListener('paste', function(e) {
+          e.preventDefault();
+          const pastedText = (e.clipboardData || window.clipboardData).getData('text');
+          const numericText = pastedText.replace(/[^0-9]/g, '');
+          if (numericText.length > 0) {
+            this.value = numericText.charAt(0);
+            if (index < otpInputs.length - 1 && numericText.length > 1) {
+              otpInputs[index + 1].value = numericText.charAt(1);
+              if (index + 1 < otpInputs.length - 1 && numericText.length > 2) {
+                otpInputs[index + 2].value = numericText.charAt(2);
+                if (index + 2 < otpInputs.length - 1 && numericText.length > 3) {
+                  otpInputs[index + 3].value = numericText.charAt(3);
+                  if (index + 3 < otpInputs.length - 1 && numericText.length > 4) {
+                    otpInputs[index + 4].value = numericText.charAt(4);
+                  }
+                }
+              }
+            }
+          }
+        });
+        
         input.addEventListener('input', function(e) {
+          // Remove any non-numeric characters
+          this.value = this.value.replace(/[^0-9]/g, '');
+          
           if (e.target.value.length === 1) {
             if (index < otpInputs.length - 1) {
               otpInputs[index + 1].focus();
