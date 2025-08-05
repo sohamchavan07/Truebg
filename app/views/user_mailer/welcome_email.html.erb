@@ -5,13 +5,33 @@
   <title>Email Template</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
+    /* Reset styles for email clients */
+    body, table, td, p, a, li, blockquote {
+      -webkit-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
+    }
+    table, td {
+      mso-table-lspace: 0pt;
+      mso-table-rspace: 0pt;
+    }
+    img {
+      -ms-interpolation-mode: bicubic;
+      border: 0;
+      height: auto;
+      line-height: 100%;
+      outline: none;
+      text-decoration: none;
+    }
+    
     body {
       background: #e6e6e6;
-      font-family: Arial, sans-serif;
+      font-family: Arial, Helvetica, sans-serif;
       margin: 0;
       padding: 0;
       width: 100% !important;
+      -webkit-font-smoothing: antialiased;
     }
+    
     .email-container {
       background: #fff;
       width: 100% !important;
@@ -23,18 +43,21 @@
       padding: 0;
       min-height: 80vh;
     }
+    
     .email-header {
       color: #2196f3;
       font-size: 14px;
       padding: 16px 0 0 16px;
       font-weight: 500;
     }
+    
     .email-content {
       margin: 0;
       padding: 24px 32px 16px 32px;
       border-radius: 0;
       background: #fff;
     }
+    
     .logo {
       display: block;
       margin: 0 auto 16px auto;
@@ -43,76 +66,120 @@
       background: url('https://dummyimage.com/180x40/cccccc/000000&text=Logoipsum') no-repeat center center;
       background-size: contain;
     }
+    
     .main-title {
       font-size: 20px;
       font-weight: 500;
       margin-bottom: 24px;
       color: #222;
+      line-height: 1.3;
     }
+    
+    .main-title h1 {
+      margin: 0 0 8px 0;
+      font-size: 24px;
+      font-weight: 700;
+      color: #111;
+    }
+    
     .congrats {
       font-weight: bold;
       margin-bottom: 12px;
       color: #222;
+      font-size: 16px;
     }
+    
     .email-body {
       font-size: 15px;
       color: #333;
       margin-bottom: 20px;
       line-height: 1.6;
     }
+    
     .cta-button {
       display: inline-block;
       background: #66ffff;
-      color: #000;
+      color: #000 !important;
       font-size: 15px;
       font-weight: 500;
-      padding: 10px 28px;
+      padding: 12px 32px;
       border-radius: 22px;
       text-decoration: none;
       margin-bottom: 16px;
       margin-top: 8px;
       border: none;
       cursor: pointer;
+      text-align: center;
+      min-width: 200px;
     }
+    
+    .cta-button:hover {
+      background: #4dd6d6 !important;
+    }
+    
     .note {
       font-size: 11px;
       color: #888;
       margin-bottom: 16px;
+      line-height: 1.4;
     }
+    
     .system-message {
       font-size: 10px;
       color: #aaa;
       margin-bottom: 16px;
+      font-style: italic;
     }
+    
     .regards {
       font-size: 15px;
       color: #222;
       font-weight: 500;
       margin-bottom: 0;
     }
+    
     .team {
       font-size: 15px;
       color: #222;
       font-weight: bold;
       margin-bottom: 16px;
     }
+    
     .email-footer {
       margin-top: 32px;
       padding: 16px 0 0 0;
       text-align: center;
       border-top: 1px solid #eee;
     }
+    
     .footer-logo {
       width: 120px;
       height: 24px;
       background-size: contain;
       margin-bottom: 8px;
     }
+    
     .copyright {
       font-size: 11px;
       color: #aaa;
     }
-    @media only screen and (max-width: 600px) {
+    
+    .footer-links {
+      margin: 8px 0;
+    }
+    
+    .footer-links a {
+      color: #2196f3 !important;
+      text-decoration: none;
+      margin: 0 8px;
+    }
+    
+    .footer-links a:hover {
+      text-decoration: underline !important;
+    }
+    
+    /* Mobile devices (up to 480px) */
+    @media only screen and (max-width: 480px) {
       .email-container {
         width: 100% !important;
         max-width: 100% !important;
@@ -121,35 +188,203 @@
         border-radius: 0 !important;
         box-shadow: none !important;
       }
+      
       .email-content {
         margin: 0 !important;
-        padding: 16px 4vw 8px 4vw !important;
+        padding: 16px 20px 8px 20px !important;
       }
+      
+      .email-header {
+        padding: 12px 0 0 20px !important;
+        font-size: 13px !important;
+      }
+      
       .main-title {
-        font-size: 17px !important;
+        font-size: 18px !important;
         margin-bottom: 16px !important;
       }
-      .congrats, .regards, .team {
-        font-size: 13px !important;
+      
+      .main-title h1 {
+        font-size: 20px !important;
+        margin-bottom: 6px !important;
       }
+      
+      .congrats {
+        font-size: 15px !important;
+        margin-bottom: 10px !important;
+      }
+      
+      .regards, .team {
+        font-size: 14px !important;
+      }
+      
       .email-body {
-        font-size: 13px !important;
+        font-size: 14px !important;
+        margin-bottom: 18px !important;
       }
+      
       .cta-button {
-        font-size: 13px !important;
-        padding: 8px 16px !important;
+        font-size: 14px !important;
+        padding: 12px 24px !important;
+        min-width: 180px !important;
+        display: block !important;
+        margin: 12px auto 16px auto !important;
       }
+      
+      .note {
+        font-size: 10px !important;
+        margin-bottom: 14px !important;
+      }
+      
+      .system-message {
+        font-size: 9px !important;
+        margin-bottom: 14px !important;
+      }
+      
       .email-footer {
-        margin: 0 !important;
-        padding: 12px 2vw 0 2vw !important;
+        margin-top: 24px !important;
+        padding: 12px 20px 0 20px !important;
       }
+      
       .logo {
-        width: 120px !important;
-        height: 28px !important;
+        width: 140px !important;
+        height: 32px !important;
+        margin-bottom: 12px !important;
       }
+      
       .footer-logo {
-        width: 80px !important;
-        height: 16px !important;
+        width: 100px !important;
+        height: 20px !important;
+      }
+      
+      .copyright {
+        font-size: 10px !important;
+      }
+    }
+    
+    /* Small tablets (481px to 600px) */
+    @media only screen and (min-width: 481px) and (max-width: 600px) {
+      .email-container {
+        max-width: 100% !important;
+        margin: 0 auto !important;
+      }
+      
+      .email-content {
+        padding: 20px 24px 12px 24px !important;
+      }
+      
+      .main-title {
+        font-size: 19px !important;
+        margin-bottom: 20px !important;
+      }
+      
+      .main-title h1 {
+        font-size: 22px !important;
+      }
+      
+      .cta-button {
+        padding: 11px 28px !important;
+        font-size: 14px !important;
+      }
+      
+      .logo {
+        width: 160px !important;
+        height: 36px !important;
+      }
+    }
+    
+    /* Large tablets (601px to 768px) */
+    @media only screen and (min-width: 601px) and (max-width: 768px) {
+      .email-container {
+        max-width: 520px !important;
+      }
+      
+      .email-content {
+        padding: 28px 36px 20px 36px !important;
+      }
+      
+      .main-title {
+        font-size: 21px !important;
+        margin-bottom: 26px !important;
+      }
+      
+      .main-title h1 {
+        font-size: 26px !important;
+      }
+      
+      .cta-button {
+        padding: 14px 36px !important;
+        font-size: 16px !important;
+      }
+    }
+    
+    /* Desktop (769px and up) */
+    @media only screen and (min-width: 769px) {
+      .email-container {
+        max-width: 520px !important;
+      }
+      
+      .email-content {
+        padding: 32px 40px 24px 40px !important;
+      }
+      
+      .main-title {
+        font-size: 22px !important;
+        margin-bottom: 28px !important;
+      }
+      
+      .main-title h1 {
+        font-size: 28px !important;
+      }
+      
+      .cta-button {
+        padding: 16px 40px !important;
+        font-size: 16px !important;
+      }
+    }
+    
+    /* Dark mode support */
+    @media (prefers-color-scheme: dark) {
+      .email-container {
+        background: #1a1a1a !important;
+      }
+      
+      .email-content {
+        background: #1a1a1a !important;
+      }
+      
+      .main-title, .congrats, .regards, .team {
+        color: #ffffff !important;
+      }
+      
+      .email-body {
+        color: #cccccc !important;
+      }
+      
+      .note {
+        color: #aaaaaa !important;
+      }
+      
+      .system-message {
+        color: #888888 !important;
+      }
+      
+      .email-footer {
+        border-top-color: #333333 !important;
+      }
+    }
+    
+    /* Print styles */
+    @media print {
+      .email-container {
+        box-shadow: none !important;
+        border: 1px solid #ccc !important;
+      }
+      
+      .cta-button {
+        border: 1px solid #000 !important;
+        background: #fff !important;
+        color: #000 !important;
       }
     }
   </style>
@@ -159,17 +394,17 @@
   <div class="email-container">
     <div class="email-content">
       <div class="main-title">
-      <h1> Truebg</h1>
+        <h1>Truebg</h1>
         Background verification initiated for your role at Truebg.
       </div>
       <div class="congrats">Congratulations, <%= @user_name %>!</div>
       <div class="email-body">
-        We're excited to have you join us. Let's complete the final step in the onboarding process.<br>
+        We're excited to have you join us. Let's complete the final step in the onboarding process.<br><br>
         This verification is handled by our trusted partner, truebg, and will cover your employment history, educational qualifications, and a criminal record check. Your information will be handled securely and confidentially. Please click the link below to start;
       </div>
       <a href="http://localhost:3000/phone_verification" class="cta-button">Start Secure Verification</a>
       <div class="note">
-        This secure link will expire in 7 days. The verification process typically takes 5-10 business days to complete. We will notify you once it’s done and share the details for your first day.
+        This secure link will expire in 7 days. The verification process typically takes 5-10 business days to complete. We will notify you once it's done and share the details for your first day.
       </div>
       <div class="system-message"> 
         This is a system generated message. Do not reply.
@@ -177,14 +412,14 @@
       <div class="regards">Best Regards,</div>
       <div class="team">Team Truebg</div>
       <div class="email-footer">
-        <div style="font-size:13px; color:#888; margin-bottom:4px;">
+        <div class="copyright">
           © 2035 Truebg Inc. All rights reserved.
         </div>
-        <div style="font-size:12px; color:#888; margin-bottom:4px;">
-          Visit us: <a href="https://truebg.com" style="color:#2196f3; text-decoration:none;">Truebg.com</a> |
-          Contact: <a href="mailto:support@Truebg.com" style="color:#2196f3; text-decoration:none;">support@Truebg.com</a>
+        <div class="footer-links">
+          Visit us: <a href="https://truebg.com">Truebg.com</a> |
+          Contact: <a href="mailto:support@Truebg.com">support@Truebg.com</a>
         </div>
-        <div style="font-size:11px; color:#aaa;">
+        <div class="copyright">
           This email and any attachments are confidential and intended solely for the recipient. If you received this in error, please delete it.
         </div>
       </div>
