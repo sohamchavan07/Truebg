@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile Setup</title>
+  <style>
+    body {
+      background: linear-gradient(to bottom, #e6f0fa, #f0f0f0);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    .profile-card {
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      width: 300px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 20px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: black;
+      margin: 0 0 15px 0;
+    }
+
+    .dropdown {
+      background-color: #f0f0f0;
+      border: 1px solid #ccc;
+      font-size: 14px;
+      font-weight: 400;
+      color: black;
+      width: 100%;
+      padding: 10px;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      cursor: pointer;
+    }
+
+    .subtext {
+      font-size: 12px;
+      font-weight: 400;
+      color: gray;
+      margin: 5px 0;
+    }
+
+    .subtext:nth-of-type(2) {
+      color: black;
+    }
+
+    .next-button {
+      background-color: black;
+      color: white;
+      font-size: 16px;
+      font-weight: 600;
+      text-transform: uppercase;
+      border: none;
+      border-radius: 5px;
+      padding: 10px;
+      width: 100%;
+      cursor: pointer;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      margin-top: 20px;
+    }
+
+    footer {
+      margin-top: 20px;
+    }
+
+    footer p {
+      font-size: 10px;
+      font-weight: 400;
+      color: gray;
+    }
+
+    footer p span {
+      font-weight: 700;
+      color: #007BFF;
+    }
+  </style>
+</head>
+<body>
+  <div class="profile-card">
+    <h1>YOUR PROFILE</h1>
+    <select class="dropdown">
+      <option value="123">WORK EXPERIENCE 1</option>
+      <option value="...">WORK EXPERIENCE 2</option>
+      <option value="...">WORK EXPERIENCE 3</option>
+    </select>
+    <p class="subtext">ENTER TOKEN FROM YOUR HARDWARE TOKEN</p>
+    <p class="subtext">ENTER TOKEN FROM Fetian OTP C100 AUTH</p>
+    <button class="next-button">NEXT</button>
+  </div>
+  <footer>
+    <p><span>truebg</span> &copy; 2023 TRUEBG. ALL RIGHTS RESERVED.</p>
+  </footer>
+</body>
+</html>

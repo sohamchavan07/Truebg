@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   post "verify_otp", to: "verifications#verify_otp", as: :verifications_verify_otp
   get "connect_digilocker", to: "verifications#connect_digilocker", as: :verifications_connect_digilocker
   get "primary_details", to: "verifications#primary_details", as: :verifications_primary_details
+  get "verifications/your_profile", to: "verifications#your_profile", as: :verifications_your_profile
 
   # Welcome email functionality
   post "send_welcome_email", to: "verifications#send_welcome_email", as: :send_welcome_email

@@ -19,6 +19,11 @@ class VerificationsController < ApplicationController
     render layout: false
   end
 
+  def your_profile
+    # This action will render the your_profile view
+    render layout: false
+  end
+
   def send_otp
     # Get phone number from params
     phone = params[:phone]
