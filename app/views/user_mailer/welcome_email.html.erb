@@ -343,50 +343,25 @@
       }
     }
     
-    /* Dark mode support */
-    @media (prefers-color-scheme: dark) {
-      .email-container {
-        background: #1a1a1a !important;
-      }
-      
-      .email-content {
-        background: #1a1a1a !important;
-      }
-      
-      .main-title, .congrats, .regards, .team {
-        color: #ffffff !important;
-      }
-      
-      .email-body {
-        color: #cccccc !important;
-      }
-      
-      .note {
-        color: #aaaaaa !important;
-      }
-      
-      .system-message {
-        color: #888888 !important;
-      }
-      
-      .email-footer {
-        border-top-color: #333333 !important;
-      }
-    }
-    
-    /* Print styles */
-    @media print {
-      .email-container {
-        box-shadow: none !important;
-        border: 1px solid #ccc !important;
-      }
-      
-      .cta-button {
-        border: 1px solid #000 !important;
-        background: #fff !important;
-        color: #000 !important;
-      }
-    }
+    /* Dark mode support *//* Dark mode support - force white background */
+@media (prefers-color-scheme: dark) {
+  .email-container {
+    background: #ffffff !important;
+  }
+  
+  .email-content {
+    background: #ffffff !important;
+  }
+  
+  .main-title, .congrats, .regards, .team, .email-body, .note, .system-message {
+    color: #000000 !important;
+  }
+  
+  .email-footer {
+    border-top-color: #eeeeee !important;
+  }
+}
+
   </style>
 </head>
 <body>
@@ -413,7 +388,7 @@
       <div class="team">Team Truebg</div>
       <div class="email-footer">
         <div class="copyright">
-          © 2035 Truebg Inc. All rights reserved.
+          © 2025 Truebg Inc. All rights reserved.
         </div>
         <div class="footer-links">
           Visit us: <a href="https://truebg.com">Truebg.com</a> |
