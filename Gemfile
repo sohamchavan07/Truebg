@@ -45,6 +45,7 @@ gem "annotaterb"
 gem "money-rails", "~> 1.12"
 gem "pry"
 gem "bcrypt", "~> 3.1.7"
+gem 'twilio-ruby'
 
 
 group :development, :test do
