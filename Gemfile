@@ -54,7 +54,7 @@ group :development, :test do
 
   gem "bundler-audit"
 
-  gem "rspec-rails", "~> 8.0.0"
+  gem "rspec-rails", "~> 8.0.2"
 
   gem "httparty"
 
