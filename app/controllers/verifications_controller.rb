@@ -36,11 +36,16 @@ class VerificationsController < ApplicationController
       session[:otp] = otp
       session[:phone] = phone
 
-      # TODO: Integrate with actual SMS service to send OTP
-      # For now, we'll just log it (in production, remove this)
-      Rails.logger.info "OTP for #{phone}: #{otp}"
+      # Integrate with Twilio to send OTP
+      begin
+        TwilioService.new.send_otp(phone, otp)
+        notice = "OTP sent successfully!"
+      rescue => e
+        Rails.logger.error "Twilio error: #{e.message}"
+        notice = "Failed to send OTP. Please try again."
+      end
 
-      redirect_to verifications_otp_verification_path, notice: "OTP sent successfully!"
+      redirect_to verifications_otp_verification_path, notice: notice
     else
       redirect_to phone_verification_path, alert: "Phone number is required!"
     end
