@@ -126,19 +126,19 @@
     </div>
 
     <!-- DigiLocker -->
-    <div class="list-item">
+    <%= link_to verifications_primary_details_path, class: "list-item", style: "text-decoration: none; color: inherit;" do %>
       <div class="list-text">
         <div class="list-title">Connect with DigiLocker</div>
         <div class="list-sub">Securely fetch your verified ID and Address proofs.</div>
       </div>
       <div class="arrow">&#8250;</div>
-    </div>
+    <% end %>
 
     <!-- Button -->
     <button class="btn" disabled>Review Your Details</button>
 
     <!-- Link -->
-    <div class="link">Nevermind, I'll Enter Manually</div>
+    <%= link_to "Nevermind, I'll Enter Manually", verifications_primary_details_path, class: "link", style: "display: block; text-decoration: none;" %>
 
     <!-- Footer -->
     <div class="footer">Copyright © 2025 Truebg. All Rights Reserved.</div>

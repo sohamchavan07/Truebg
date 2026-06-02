@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Truebg Admin</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+
+  <body class="bg-gray-100">
+    <nav class="bg-white shadow-sm border-b">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16">
+          <div class="flex">
+            <div class="flex-shrink-0 flex items-center">
+              <%= link_to admins_root_path, class: "text-xl font-bold text-blue-600" do %>
+                Truebg <span class="text-gray-500">Admin</span>
+              <% end %>
+            </div>
+            <div class="hidden sm:-my-px sm:ml-6 sm:flex sm:space-x-8">
+              <%= link_to "Dashboard", admins_dashboard_path, class: "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium" %>
+              <%= link_to "Organizations", admins_organizations_path, class: "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium" %>
+              <%= link_to "Verification Cases", admins_verification_cases_path, class: "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium" %>
+              <%= link_to "Candidates", admins_candidates_path, class: "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium" %>
+            </div>
+          </div>
+          <div class="flex items-center">
+            <% if admin_signed_in? %>
+              <span class="text-gray-500 text-sm mr-4"><%= current_admin.email %></span>
+              <%= button_to "Sign Out", destroy_admin_session_path, method: :delete, class: "text-gray-500 hover:text-gray-700 text-sm font-medium" %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <main class="py-10">
+      <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <% if notice %>
+          <div class="mb-4 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative">
+            <%= notice %>
+          </div>
+        <% end %>
+        <% if alert %>
+          <div class="mb-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative">
+            <%= alert %>
+          </div>
+        <% end %>
+        <%= yield %>
+      </div>
+    </main>
+  </body>
+</html>

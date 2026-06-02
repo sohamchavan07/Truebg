@@ -45,7 +45,7 @@ gem "annotaterb"
 gem "money-rails", "~> 1.12"
 gem "pry"
 gem "bcrypt", "~> 3.1.7"
-gem 'twilio-ruby'
+gem "twilio-ruby"
 
 
 group :development, :test do
@@ -93,3 +93,6 @@ gem "tailwindcss-rails", "~> 4.2"
 
 
 gem "pundit", "~> 2.5"
+
+gem "wicked_pdf"
+gem "wkhtmltopdf-binary"

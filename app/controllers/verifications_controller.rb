@@ -1,45 +1,74 @@
 class VerificationsController < ApplicationController
+  before_action :authenticate_candidate!, except: [ :phone_verification, :send_otp, :otp_verification, :verify_otp ]
+
   def phone_verification
-    # This action will render the phone_verification view
     render layout: false
   end
 
   def otp_verification
-    # This action will render the otp_verification view
     render layout: false
   end
 
   def connect_digilocker
-    # This action will render the connect_digilocker view
     render layout: false
   end
 
   def primary_details
-    # This action will render the primary_details view
+    @candidate = current_candidate
     render layout: false
+  end
+
+  def update_primary_details
+    if current_candidate.update(candidate_params)
+      redirect_to verifications_your_profile_path, notice: "Primary details updated successfully!"
+    else
+      render :primary_details, status: :unprocessable_entity
+    end
   end
 
   def your_profile
-    # This action will render the your_profile view
+    @candidate = current_candidate
+    @work_histories = current_candidate.work_histories
+    @education_histories = current_candidate.education_histories
     render layout: false
   end
 
+  def add_work_history
+    @work_history = current_candidate.work_histories.build(work_history_params)
+    if @work_history.save
+      redirect_to verifications_your_profile_path, notice: "Work history added!"
+    else
+      redirect_to verifications_your_profile_path, alert: "Failed to add work history."
+    end
+  end
+
+  def add_education_history
+    @education_history = current_candidate.education_histories.build(education_history_params)
+    if @education_history.save
+      redirect_to verifications_your_profile_path, notice: "Education history added!"
+    else
+      redirect_to verifications_your_profile_path, alert: "Failed to add education history."
+    end
+  end
+
+  def submit_verification
+    # Here we would update the VerificationCase status
+    verification_case = current_candidate.verification_cases.where(status: "in_progress").last
+    if verification_case
+      verification_case.update(status: "completed", completed_at: Time.current)
+      redirect_to root_path, notice: "Verification submitted for review!"
+    else
+      redirect_to root_path, alert: "No active verification case found."
+    end
+  end
+
   def send_otp
-    # Get phone number from params
     phone = params[:phone]
-
     if phone.present?
-      # Generate a 5-digit OTP
       otp = rand(10000..99999).to_s
-
-      # Store OTP and phone in session for verification
       session[:otp] = otp
       session[:phone] = phone
-
-      # TODO: Integrate with actual SMS service to send OTP
-      # For now, we'll just log it (in production, remove this)
       Rails.logger.info "OTP for #{phone}: #{otp}"
-
       redirect_to verifications_otp_verification_path, notice: "OTP sent successfully!"
     else
       redirect_to phone_verification_path, alert: "Phone number is required!"
@@ -47,39 +76,32 @@ class VerificationsController < ApplicationController
   end
 
   def verify_otp
-    # Get OTP from form fields
     entered_otp = "#{params[:otp_1]}#{params[:otp_2]}#{params[:otp_3]}#{params[:otp_4]}#{params[:otp_5]}"
     stored_otp = session[:otp]
 
     if stored_otp.present? && entered_otp == stored_otp
-      # OTP is correct - clear session and redirect to next step
       session.delete(:otp)
       session[:phone_verified] = true
 
-      # Redirect to connect_digilocker page
+      # For now, if no candidate is logged in, we might need to handle registration or login
+      # In a real flow, the invitation token would link to a candidate
       redirect_to verifications_connect_digilocker_path, notice: "Phone number verified successfully!"
     else
-      # OTP is incorrect
       redirect_to verifications_otp_verification_path, alert: "Invalid OTP. Please try again."
     end
   end
 
-  def send_welcome_email
-    # Get email and name from params
-    email = params[:email]
-    name = params[:name]
+  private
 
-    if email.present?
-      begin
-        UserMailer.welcome_email(email, name).deliver_now
-        flash[:notice] = "Welcome email sent successfully to #{email}!"
-      rescue => e
-        flash[:error] = "Failed to send welcome email: #{e.message}"
-      end
-    else
-      flash[:error] = "Email address is required"
-    end
+  def candidate_params
+    params.require(:candidate).permit(:first_name, :last_name, :dob, :pan_number, :aadhaar_number, :address, :city, :state, :pincode)
+  end
 
-    redirect_to root_path
+  def work_history_params
+    params.require(:work_history).permit(:company_name, :job_title, :start_date, :end_date, :current_job, :location)
+  end
+
+  def education_history_params
+    params.require(:education_history).permit(:institution_name, :degree, :field_of_study, :graduation_year)
   end
 end

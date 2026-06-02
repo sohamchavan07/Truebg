@@ -1,340 +1,342 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Mobile Verification</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body {
-      min-height: 100vh;
-      margin: 0;
-      font-family: 'Inter', Arial, sans-serif;
-      background: linear-gradient(135deg, #f8fbff 0%, #f3f6fa 100%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      padding: 0 16px;
-    }
-    .logo {
-      margin-top: 48px;
-      margin-bottom: 32px;
-      text-align: center;
-    }
-    .logo img {
-      height: 40px;
-      max-width: 100%;
-    }
-    .card {
-      background: #fff;
-      border-radius: 12px;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-      padding: 40px 32px 32px 32px;
-      max-width: 370px;
-      width: 100%;
-      margin: 0 auto;
-      text-align: center;
-      border: 1px solid #ececec;
-      box-sizing: border-box;
-    }
-    .card h2 {
-      font-size: 1.5rem;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-      color: #111;
-    }
-    .card h3 {
-      font-size: 1.1rem;
-      font-weight: 600;
-      margin-bottom: 1.2rem;
-      color: #222;
-    }
-    .card p {
-      font-size: 0.98rem;
-      color: #555;
-      margin-bottom: 1.5rem;
-      line-height: 1.4;
-    }
-    .input-group {
-      margin-bottom: 1.2rem;
-    }
-    .input-group input {
-      width: 100%;
-      padding: 12px 14px;
-      font-size: 1rem;
-      border: 1.5px solid #d1d5db;
-      border-radius: 8px;
-      outline: none;
-      transition: border 0.2s;
-      box-sizing: border-box;
-    }
-    .input-group input:focus {
-      border-color: #111;
-    }
-    .btn {
-      width: 100%;
-      padding: 12px 0;
-      background: #111;
-      color: #fff;
-      font-size: 1rem;
-      font-weight: 600;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-    .btn:hover {
-      background: #222;
-    }
-    .footer {
-      margin-top: auto;
-      text-align: center;
-      color: #888;
-      font-size: 1rem;
-      width: 100%;
-      padding-bottom: 32px;
-    }
-    .footer .brand {
-      font-family: 'Pacifico', cursive;
-      font-size: 1.2rem;
-      color: #888;
-      margin-bottom: 4px;
-      display: block;
-    }
-    .footer small {
-      display: block;
-      margin-top: 2px;
-      font-size: 0.85rem;
-      color: #aaa;
-    }
-    .privacy-card {
-      background: #fff;
-      border-radius: 12px;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-      padding: 24px 20px;
-      max-width: 370px;
-      width: 100%;
-      margin: 24px auto 0 auto;
-      text-align: center;
-      border: 1px solid #ececec;
-      box-sizing: border-box;
-    }
-    .privacy-card h4 {
-      font-size: 1.1rem;
-      font-weight: 700;
-      margin-bottom: 12px;
-      color: #111;
-    }
-    .privacy-card p {
-      font-size: 0.9rem;
-      color: #555;
-      margin-bottom: 8px;
-      line-height: 1.4;
-    }
-    .privacy-card a {
-      color: #111;
-      font-weight: 600;
-      text-decoration: underline;
-      margin: 0 4px;
-    }
-    .privacy-card a:hover {
-      color: #333;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phone Verification - Truebg (Responsive)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico:wght@400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* Custom font families for exact match */
+        .font-pacifico { font-family: 'Pacifico', sans-serif; }
+        .font-inter { font-family: 'Inter', sans-serif; }
+        
+        /* Custom styles for interactive elements */
+        .phone-input {
+            font-family: 'Inter', sans-serif;
+            background: transparent;
+            border: none;
+            outline: none;
+            width: 100%;
+            color: #202020;
+        }
+        
+        .edit-button, .save-button, .cancel-button {
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            cursor: pointer;
+            transition: color 0.2s;
+            background: none;
+            border: none;
+            padding: 0;
+        }
+        
+        .edit-button:hover {
+            color: #3e63dd;
+        }
+        
+        .save-button {
+            color: #3e63dd;
+        }
+        
+        .save-button:hover {
+            color: #3552c7;
+        }
+        
+        .cancel-button {
+            color: #646464;
+        }
+        
+        .cancel-button:hover {
+            color: #202020;
+        }
+        
+        .send-button {
+            background-color: #3e63dd;
+            transition: background-color 0.2s;
+        }
+        
+        .send-button:hover {
+            background-color: #3552c7;
+        }
+        
+        .send-button:active {
+            background-color: #2c46b3;
+        }
 
-    /* Mobile devices (up to 480px) */
-    @media (max-width: 480px) {
-      body {
-        padding: 0 12px;
-      }
-      .logo {
-        margin-top: 32px;
-        margin-bottom: 24px;
-      }
-      .logo img {
-        height: 32px;
-      }
-      .card {
-        padding: 32px 24px 24px 24px;
-        margin: 0 auto;
-      }
-      .card h2 {
-        font-size: 1.3rem;
-      }
-      .card h3 {
-        font-size: 1rem;
-      }
-      .card p {
-        font-size: 0.9rem;
-      }
-      .input-group input {
-        padding: 14px 12px;
-        font-size: 16px; /* Prevents zoom on iOS */
-      }
-      .btn {
-        padding: 14px 0;
-        font-size: 16px; /* Prevents zoom on iOS */
-      }
-      .privacy-card {
-        padding: 20px 16px;
-        margin: 20px auto 0 auto;
-      }
-      .privacy-card h4 {
-        font-size: 1rem;
-      }
-      .privacy-card p {
-        font-size: 0.85rem;
-      }
-      .footer {
-        padding-bottom: 24px;
-      }
-      .footer .brand {
-        font-size: 1.1rem;
-      }
-      .footer small {
-        font-size: 0.8rem;
-      }
-    }
-
-    /* Small tablets (481px to 768px) */
-    @media (min-width: 481px) and (max-width: 768px) {
-      body {
-        padding: 0 20px;
-      }
-      .logo {
-        margin-top: 40px;
-        margin-bottom: 28px;
-      }
-      .card {
-        padding: 36px 28px 28px 28px;
-      }
-      .privacy-card {
-        padding: 22px 18px;
-        margin: 20px auto 0 auto;
-      }
-    }
-
-    /* Large tablets and small desktops (769px to 1024px) */
-    @media (min-width: 769px) and (max-width: 1024px) {
-      body {
-        padding: 0 24px;
-      }
-      .card {
-        max-width: 400px;
-      }
-      .privacy-card {
-        max-width: 400px;
-      }
-    }
-
-    /* Large desktops (1025px and up) */
-    @media (min-width: 1025px) {
-      body {
-        padding: 0 32px;
-      }
-      .card {
-        max-width: 420px;
-      }
-      .privacy-card {
-        max-width: 420px;
-      }
-    }
-
-    /* Landscape orientation on mobile */
-    @media (max-width: 768px) and (orientation: landscape) {
-      .logo {
-        margin-top: 20px;
-        margin-bottom: 16px;
-      }
-      .card {
-        padding: 24px 20px 20px 20px;
-      }
-      .privacy-card {
-        padding: 16px 14px;
-        margin: 16px auto 0 auto;
-      }
-      .footer {
-        padding-bottom: 16px;
-      }
-    }
-
-    /* High DPI displays */
-    @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-      .card {
-        box-shadow: 0 1px 6px rgba(0,0,0,0.08);
-      }
-      .privacy-card {
-        box-shadow: 0 1px 6px rgba(0,0,0,0.08);
-      }
-    }
-  </style>
+        /* Responsive text sizing */
+        @media (max-width: 639px) {
+            .responsive-welcome { font-size: 20px; line-height: 28px; }
+            .responsive-description { font-size: 13px; line-height: 18px; }
+            .responsive-phone { font-size: 18px; line-height: 24px; }
+            .responsive-edit { font-size: 12px; line-height: 16px; }
+            .responsive-button { font-size: 14px; line-height: 20px; }
+            .responsive-privacy-title { font-size: 14px; line-height: 20px; }
+            .responsive-privacy-text { font-size: 12px; line-height: 18px; }
+            .responsive-privacy-link { font-size: 12px; line-height: 18px; }
+        }
+        
+        @media (min-width: 640px) and (max-width: 1023px) {
+            .responsive-welcome { font-size: 22px; line-height: 30px; }
+            .responsive-description { font-size: 14px; line-height: 20px; }
+            .responsive-phone { font-size: 20px; line-height: 28px; }
+            .responsive-edit { font-size: 13px; line-height: 18px; }
+            .responsive-button { font-size: 15px; line-height: 22px; }
+            .responsive-privacy-title { font-size: 15px; line-height: 22px; }
+            .responsive-privacy-text { font-size: 13px; line-height: 19px; }
+            .responsive-privacy-link { font-size: 13px; line-height: 19px; }
+        }
+        
+        @media (min-width: 1024px) {
+            .responsive-welcome { font-size: 24px; line-height: 32px; }
+            .responsive-description { font-size: 14px; line-height: 20px; }
+            .responsive-phone { font-size: 24px; line-height: 32px; }
+            .responsive-edit { font-size: 14px; line-height: 20px; }
+            .responsive-button { font-size: 16px; line-height: 24px; }
+            .responsive-privacy-title { font-size: 16px; line-height: 24px; }
+            .responsive-privacy-text { font-size: 14px; line-height: 20px; }
+            .responsive-privacy-link { font-size: 14px; line-height: 20px; }
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'pacifico': ['Pacifico', 'sans-serif'],
+                        'inter': ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
 </head>
-<body>
-  <div class="logo">
-    <img src="https://dummyimage.com/180x40/cccccc/000000&text=Logoipsum" alt="Logoipsum" height="40">
-  </div>
-  <div class="card">
-    <h2>Welcome!</h2>
-    <h3>Lets get you verified</h3>
-    <p>
-      To begin, please verify your mobile number<br>
-      This ensures your information remains secure.
-    </p>
-    <%= form_with url: verifications_send_otp_path, method: :post, local: true do |f| %>
-      <div class="input-group">
-        <%= f.text_field :phone, placeholder: "+91-", maxlength: 13, required: true, inputmode: "numeric", pattern: "[0-9+\-]*" %>
-      </div>
-      <%= f.submit "Send OTP", class: "btn" %>
-    <% end %>
-  </div>
-  <div class="privacy-card">
-    <h4>Your Privacy</h4>
-    <p>
-      We aim to keep the data you share during this process private, safe and secure. Learn more in our
-      <a href="#">Privacy Policy</a>
-    </p>
-    <p>
-      <a href="#">How Background Verification Works?</a>
-    </p>
-  </div>
-  <div class="footer">
-    <div class="brand">Truebg</div>
-    <small>Copyright © 2025 Truebg. All Rights Reserved.</small>
-  </div>
+<body class="bg-white">
+    <!-- Main Container -->
+    <div class="relative w-full" data-name="1">
+        
+        <!-- Background Component -->
+        <div class="min-h-screen bg-white flex flex-col items-center justify-between relative overflow-hidden" data-name="1">
+            
+            <!-- Background Gradient -->
+            <div class="absolute h-[200px] sm:h-[250px] lg:h-[300px] left-0 top-0 w-full">
+                <svg class="block w-full h-full" fill="none" preserveAspectRatio="none" viewBox="0 0 1440 300">
+                    <path d="M0 0H1440V300H0V0Z" fill="url(#paint0_linear_2_2404)" id="Rectangle 1" />
+                    <defs>
+                        <linearGradient gradientUnits="userSpaceOnUse" id="paint0_linear_2_2404" x1="1438.61" x2="163.92" y1="-2.79239" y2="630.131">
+                            <stop offset="0.24" stop-color="#F0F6FF" />
+                            <stop offset="1" stop-color="#F3F0FF" />
+                        </linearGradient>
+                    </defs>
+                </svg>
+            </div>
+            
+            <!-- Content Area -->
+            <div class="flex-1 flex items-center justify-center w-full px-4 py-8 sm:py-12 lg:py-16">
+                <div class="w-full max-w-md relative z-10">
+                    
+                    <!-- Main Content -->
+                    <div class="flex flex-col gap-[24px] sm:gap-[28px] lg:gap-[32px] items-center justify-start w-full" data-name="Stack">
+                        
+                        <!-- Logo -->
+                        <div class="h-[28px] sm:h-[32px] lg:h-[37px] relative w-full max-w-[200px] sm:max-w-[220px] lg:max-w-[245.463px] mx-auto mb-6 sm:mb-8" data-name="Stack">
+                            <svg class="block w-full h-full" fill="none" preserveAspectRatio="none" viewBox="0 0 246 37">
+                                <g id="Stack">
+                                    <!-- Simplified Logoipsum text -->
+                                    <text x="10" y="25" fill="#202020" font-family="Inter" font-size="20" font-weight="600">Logoipsum</text>
+                                </g>
+                            </svg>
+                        </div>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const phoneInput = document.querySelector('input[name="phone"]');
-      
-      // Only allow numbers, plus signs, and hyphens
-      phoneInput.addEventListener('keypress', function(e) {
-        const charCode = e.which ? e.which : e.keyCode;
-        const char = String.fromCharCode(charCode);
-        
-        // Allow: numbers (0-9), plus sign (+), hyphen (-), backspace, delete, tab, escape, enter
-        if (charCode === 8 || charCode === 9 || charCode === 27 || charCode === 13 || charCode === 46) {
-          return true;
+                        <!-- Main Verification Card -->
+                        <div class="bg-white relative rounded-[8px] w-full" data-name="Stack">
+                            <div class="box-border flex flex-col gap-[20px] sm:gap-[22px] lg:gap-[24px] items-center justify-start overflow-hidden p-[20px] sm:p-[22px] lg:p-[24px] relative w-full">
+                                
+                                <!-- Welcome Message and Description -->
+                                <div class="flex flex-col gap-[20px] sm:gap-[22px] lg:gap-[24px] items-center justify-center relative w-full" data-name="Stack">
+                                    <div class="flex flex-col gap-[8px] items-start justify-start relative w-full">
+                                        <!-- Welcome Message -->
+                                        <div class="flex flex-col font-inter font-semibold items-start justify-center relative text-[#202020] w-full" data-name="Welcome message">
+                                            <div class="relative w-full">
+                                               <p class="responsive-welcome text-center">Welcome</p>
+                                            </div>
+                                            <div class="relative w-full">
+                                                <p class="responsive-welcome text-center">Let's get you verified.
+
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <!-- Description -->
+                                        <div class="font-inter font-normal relative text-[#646464] w-full">
+                                            <p class="responsive-description">Logoipsum Solutions has initiated a secure background check for your application via their trusted partner, Truebg. To begin, please confirm your mobile number below.</p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Phone Number Field -->
+                                    <div class="h-[48px] sm:h-[52px] lg:h-[56px] relative rounded-[8px] w-full" data-name="Stack">
+                                        <div class="flex flex-row items-center overflow-hidden relative w-full h-full">
+                                            <div class="box-border flex gap-[8px] h-full items-center justify-start px-[12px] sm:px-[14px] lg:px-[16px] py-[8px] lg:py-[9px] relative text-[#202020] w-full">
+                                                <div class="flex-1 flex flex-col font-inter font-semibold justify-center relative min-w-0">
+                                                    <input 
+                                                        type="text" 
+                                                        id="phoneInput"
+                                                        class="phone-input responsive-phone"
+                                                        value="+91-90******10"
+                                                        style="display: none;"
+                                                    />
+                                                    <p id="phoneDisplay" class="responsive-phone truncate">+91-90******10</p>
+                                                </div>
+                                                <div class="flex flex-col font-inter font-medium justify-center relative shrink-0">
+                                                    <div id="editControls">
+                                                        <button id="editButton" class="edit-button responsive-edit whitespace-nowrap">Edit</button>
+                                                    </div>
+                                                    <div id="saveControls" class="flex gap-1 sm:gap-2" style="display: none;">
+                                                        <button id="saveButton" class="save-button responsive-edit whitespace-nowrap">Save</button>
+                                                        <button id="cancelButton" class="cancel-button responsive-edit whitespace-nowrap">Cancel</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="absolute border-[#d9d9d9] border-[1.25px] border-solid inset-0 pointer-events-none rounded-[8px]"></div>
+                                    </div>
+
+                                    <!-- Send OTP Button -->
+                                    <button 
+                                        id="sendOtpButton"
+                                        class="send-button h-[44px] sm:h-[48px] lg:h-[52px] relative rounded-[8px] w-full cursor-pointer" 
+                                        data-name="Button (Standard)"
+                                    >
+                                        <div class="flex flex-row items-center justify-center overflow-hidden relative w-full h-full">
+                                            <div class="box-border flex gap-[8px] h-full items-center justify-center px-[20px] sm:px-[22px] lg:px-[24px] py-[10px] sm:py-[11px] lg:py-[12px] relative w-full">
+                                                <div class="font-inter font-medium relative text-center text-white">
+                                                    <p class="responsive-button whitespace-nowrap">Send Verification OTP</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="absolute border border-[#d9d9d9] border-solid inset-0 pointer-events-none rounded-[8px] shadow-[0px_1px_3px_0px_rgba(0,0,0,0.1),0px_1px_2px_0px_rgba(0,0,0,0.06)]"></div>
+                        </div>
+
+                        <!-- Privacy Information Card -->
+                        <div class="relative rounded-[8px] w-full" data-name="Stack">
+                            <div class="box-border flex flex-col gap-[20px] sm:gap-[22px] lg:gap-[24px] items-center justify-start overflow-hidden p-[20px] sm:p-[22px] lg:p-[24px] relative w-full">
+                                <div class="flex flex-col gap-[8px] items-center justify-center relative text-center w-full" data-name="Stack">
+                                    <div class="font-inter font-semibold relative text-[#202020] w-full">
+                                        <p class="responsive-privacy-title">Your Privacy</p>
+                                    </div>
+                                    <div class="font-inter font-normal relative text-[#646464] w-full">
+                                        <p class="responsive-privacy-text mb-[12px] sm:mb-[13px] lg:mb-[14px]">We aim to keep the data you share during this process private, safe and secure. Learn more in our </p>
+                                        <p class="responsive-privacy-text">Privacy Policy.</p>
+                                    </div>
+                                    <div class="font-inter font-semibold relative text-[#202020] w-full">
+                                        <p class="responsive-privacy-link">How Background Verification Works?</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="absolute border border-[#d9d9d9] border-solid inset-0 pointer-events-none rounded-[8px]"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Footer -->
+            <div class="relative z-10 pb-8 px-4 w-full">
+                <div class="flex flex-col gap-[16px] items-center justify-start text-[#646464] text-center w-full max-w-[576px] mx-auto px-4" data-name="Footer">
+                    <div class="font-pacifico relative text-[24px] w-full">
+                        <p class="leading-[32px]">truebg</p>
+                    </div>
+                    <div class="font-inter font-normal relative text-[12px] w-full">
+                        <p class="leading-[16px]">Copyright © 2025 Truebg. All Rights Reserved.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Phone number editing functionality
+        let isEditing = false;
+        let phoneNumber = "+91-90******10";
+        let tempPhoneNumber = phoneNumber;
+
+        const phoneInput = document.getElementById('phoneInput');
+        const phoneDisplay = document.getElementById('phoneDisplay');
+        const editButton = document.getElementById('editButton');
+        const saveButton = document.getElementById('saveButton');
+        const cancelButton = document.getElementById('cancelButton');
+        const editControls = document.getElementById('editControls');
+        const saveControls = document.getElementById('saveControls');
+        const sendOtpButton = document.getElementById('sendOtpButton');
+
+        function handleEdit() {
+            tempPhoneNumber = phoneNumber;
+            phoneInput.value = tempPhoneNumber;
+            isEditing = true;
+            
+            phoneDisplay.style.display = 'none';
+            phoneInput.style.display = 'block';
+            editControls.style.display = 'none';
+            saveControls.style.display = 'flex';
+            
+            phoneInput.focus();
         }
-        
-        // Allow only numbers, plus, and hyphen
-        if (!/[0-9+\-]/.test(char)) {
-          e.preventDefault();
-          return false;
+
+        function handleSave() {
+            phoneNumber = phoneInput.value;
+            tempPhoneNumber = phoneNumber;
+            isEditing = false;
+            
+            phoneDisplay.textContent = phoneNumber;
+            phoneDisplay.style.display = 'block';
+            phoneInput.style.display = 'none';
+            editControls.style.display = 'block';
+            saveControls.style.display = 'none';
         }
-      });
-      
-      // Prevent paste of non-allowed characters
-      phoneInput.addEventListener('paste', function(e) {
-        e.preventDefault();
-        const pastedText = (e.clipboardData || window.clipboardData).getData('text');
-        const allowedText = pastedText.replace(/[^0-9+\-]/g, '');
-        this.value = allowedText;
-      });
-      
-      // Remove any non-allowed characters on input
-      phoneInput.addEventListener('input', function(e) {
-        this.value = this.value.replace(/[^0-9+\-]/g, '');
-      });
-    });
-  </script>
+
+        function handleCancel() {
+            phoneInput.value = phoneNumber;
+            tempPhoneNumber = phoneNumber;
+            isEditing = false;
+            
+            phoneDisplay.style.display = 'block';
+            phoneInput.style.display = 'none';
+            editControls.style.display = 'block';
+            saveControls.style.display = 'none';
+        }
+
+        function handleSendOtp() {
+            alert(`OTP sent to ${phoneNumber}`);
+        }
+
+        // Event listeners
+        editButton.addEventListener('click', handleEdit);
+        saveButton.addEventListener('click', handleSave);
+        cancelButton.addEventListener('click', handleCancel);
+        sendOtpButton.addEventListener('click', handleSendOtp);
+
+        // Input event listeners
+        phoneInput.addEventListener('input', (e) => {
+            tempPhoneNumber = e.target.value;
+        });
+
+        phoneInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                handleSave();
+            } else if (e.key === 'Escape') {
+                handleCancel();
+            }
+        });
+
+        phoneInput.addEventListener('blur', () => {
+            // Small delay to allow clicking save/cancel buttons
+            setTimeout(() => {
+                if (isEditing) {
+                    handleSave();
+                }
+            }, 100);
+        });
+    </script>
 </body>
 </html>
