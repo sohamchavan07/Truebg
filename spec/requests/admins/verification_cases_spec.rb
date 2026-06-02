@@ -37,7 +37,7 @@ RSpec.describe "Admins::VerificationCases", type: :request do
       expect {
         post admins_verification_cases_path, params: { verification_case: { candidate_email: "new@candidate.com", organization_id: organization.id } }
       }.to change(VerificationCase, :count).by(1).and change(Candidate, :count).by(1)
-      
+
       expect(response).to redirect_to(admins_verification_cases_path)
     end
   end
