@@ -1,29 +1,99 @@
-<h2>Sign up</h2>
-
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
-
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+<div class="min-h-screen bg-gradient-to-br from-cyan-50 via-white to-cyan-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+  <div class="sm:mx-auto sm:w-full sm:max-w-md text-center">
+    <div class="flex justify-center">
+       <span class="text-3xl font-extrabold text-cyan-500 tracking-tight">truebg</span>
+    </div>
+    <h2 class="mt-6 text-3xl font-extrabold text-gray-900 tracking-tight">
+      Create your account
+    </h2>
+    <p class="mt-2 text-sm text-gray-600">
+      Or
+      <%= link_to "sign in to your existing account", new_session_path(resource_name), class: "font-medium text-cyan-600 hover:text-cyan-500 transition" %>
+    </p>
   </div>
 
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-  </div>
+  <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+    <div class="bg-white py-8 px-4 shadow-xl sm:rounded-2xl sm:px-10 border border-gray-100">
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "space-y-6" }) do |f| %>
+        <%= render "devise/shared/error_messages", resource: resource %>
 
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
+        <div>
+          <%= f.label :email, class: "block text-sm font-medium text-gray-700 mb-1" %>
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", 
+              class: "appearance-none block w-full px-3 py-3 border border-gray-300 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-cyan-500 focus:border-cyan-500 sm:text-sm transition duration-150",
+              placeholder: "you@example.com" %>
+        </div>
 
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
-<% end %>
+        <div>
+          <%= f.label :password, class: "block text-sm font-medium text-gray-700 mb-1" %>
+          <% if @minimum_password_length %>
+            <span class="text-xs text-gray-500">(<%= @minimum_password_length %> characters minimum)</span>
+          <% end %>
+          <div class="mt-1 relative" data-controller="password-visibility">
+            <%= f.password_field :password, autocomplete: "new-password", 
+                data: { password_visibility_target: "input" },
+                class: "appearance-none block w-full px-3 py-3 border border-gray-300 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-cyan-500 focus:border-cyan-500 sm:text-sm transition duration-150",
+                placeholder: "••••••••" %>
+            <button type="button" class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 focus:outline-none" data-action="password-visibility#toggle">
+              <span data-password-visibility-target="icon">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.644C3.483 8.653 7.073 5.625 11.25 5.625c4.177 0 7.767 3.028 9.213 6.697a1.012 1.012 0 010 .644C19.017 15.347 15.427 18.375 11.25 18.375c-4.177 0-7.767-3.028-9.213-6.697z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+              </span>
+            </button>
+          </div>
+        </div>
 
-<%= render "devise/shared/links" %>
+        <div>
+          <%= f.label :password_confirmation, "Confirm Password", class: "block text-sm font-medium text-gray-700 mb-1" %>
+          <div class="mt-1 relative" data-controller="password-visibility">
+            <%= f.password_field :password_confirmation, autocomplete: "new-password", 
+                data: { password_visibility_target: "input" },
+                class: "appearance-none block w-full px-3 py-3 border border-gray-300 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-cyan-500 focus:border-cyan-500 sm:text-sm transition duration-150",
+                placeholder: "••••••••" %>
+            <button type="button" class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 focus:outline-none" data-action="password-visibility#toggle">
+              <span data-password-visibility-target="icon">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.644C3.483 8.653 7.073 5.625 11.25 5.625c4.177 0 7.767 3.028 9.213 6.697a1.012 1.012 0 010 .644C19.017 15.347 15.427 18.375 11.25 18.375c-4.177 0-7.767-3.028-9.213-6.697z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+              </span>
+            </button>
+          </div>
+        </div>
+
+        <div>
+          <%= f.submit "Create Account", 
+              class: "w-full flex justify-center py-3 px-4 border border-transparent rounded-xl shadow-lg text-sm font-bold text-white bg-cyan-500 hover:bg-cyan-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 transition duration-150 transform hover:-translate-y-0.5 active:translate-y-0" %>
+        </div>
+      <% end %>
+
+      <div class="mt-6">
+        <div class="relative">
+          <div class="absolute inset-0 flex items-center">
+            <div class="w-full border-t border-gray-300"></div>
+          </div>
+          <div class="relative flex justify-center text-sm">
+            <span class="px-2 bg-white text-gray-500">
+              Already have an account?
+            </span>
+          </div>
+        </div>
+
+        <div class="mt-6 text-center">
+          <%= link_to "Back to Sign In", new_session_path(resource_name), 
+              class: "font-medium text-cyan-600 hover:text-cyan-500 transition" %>
+        </div>
+      </div>
+    </div>
+    
+    <div class="mt-8 text-center px-4">
+      <p class="text-xs text-gray-500">
+        By creating an account, you agree to our 
+        <a href="#" class="underline hover:text-gray-700">Terms of Service</a> and 
+        <a href="#" class="underline hover:text-gray-700">Privacy Policy</a>.
+      </p>
+    </div>
+  </div>
+</div>

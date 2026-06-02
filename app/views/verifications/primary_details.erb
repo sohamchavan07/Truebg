@@ -256,76 +256,61 @@
         </div>
 
         <h1 class="title">Your Identity and Address</h1>
-        <p class="description">The following information was securely fetched from your DigiLocker account.</p>
+        <p class="description">Please confirm or update your information for verification.</p>
 
-        <div class="info-list">
-            <div class="info-item">
-                <div class="info-icon">👤</div>
-                <div class="info-content">
-                    <div class="info-label">Full Name</div>
-                    <div class="info-value">Priya Ashok Pathak</div>
+        <%= form_with(model: @candidate, url: verifications_update_primary_details_path, method: :patch, local: true) do |f| %>
+            <div class="info-list">
+                <div class="info-item">
+                    <div class="info-icon">👤</div>
+                    <div class="info-content">
+                        <div class="info-label">First Name</div>
+                        <%= f.text_field :first_name, class: "info-value", style: "border: none; background: transparent; width: 100%; border-bottom: 1px solid #e5e7eb;" %>
+                    </div>
                 </div>
-                <div class="info-status status-pending">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M21 2v6h-6M3 12a9 9 0 0 1 15-6.7L21 8M3 22v-6h6M21 12a9 9 0 0 1-15 6.7L3 16"/>
-                    </svg>
+
+                <div class="info-item">
+                    <div class="info-icon">👤</div>
+                    <div class="info-content">
+                        <div class="info-label">Last Name</div>
+                        <%= f.text_field :last_name, class: "info-value", style: "border: none; background: transparent; width: 100%; border-bottom: 1px solid #e5e7eb;" %>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <div class="info-icon">📅</div>
+                    <div class="info-content">
+                        <div class="info-label">Date of Birth</div>
+                        <%= f.date_field :dob, class: "info-value", style: "border: none; background: transparent; width: 100%; border-bottom: 1px solid #e5e7eb;" %>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <div class="info-icon">🪪</div>
+                    <div class="info-content">
+                        <div class="info-label">PAN Number</div>
+                        <%= f.text_field :pan_number, class: "info-value", style: "border: none; background: transparent; width: 100%; border-bottom: 1px solid #e5e7eb;" %>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <div class="info-icon">🛡️</div>
+                    <div class="info-content">
+                        <div class="info-label">Aadhaar Number</div>
+                        <%= f.text_field :aadhaar_number, class: "info-value", style: "border: none; background: transparent; width: 100%; border-bottom: 1px solid #e5e7eb;" %>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <div class="info-icon">🏠</div>
+                    <div class="info-content">
+                        <div class="info-label">Present Address</div>
+                        <%= f.text_area :address, class: "info-value", rows: 2, style: "border: none; background: transparent; width: 100%; border-bottom: 1px solid #e5e7eb;" %>
+                    </div>
                 </div>
             </div>
 
-            <div class="info-item">
-                <div class="info-icon">📅</div>
-                <div class="info-content">
-                    <div class="info-label">Date of Birth</div>
-                    <div class="info-value">10/02/1990</div>
-                </div>
-                <div class="info-status status-verified">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <polyline points="20,6 9,17 4,12"></polyline>
-                    </svg>
-                </div>
-            </div>
-
-            <div class="info-item">
-                <div class="info-icon">🪪</div>
-                <div class="info-content">
-                    <div class="info-label">PAN Number</div>
-                    <div class="info-value">XXXX-XXXX-1234</div>
-                </div>
-                <div class="info-status status-pending">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M21 2v6h-6M3 12a9 9 0 0 1 15-6.7L21 8M3 22v-6h6M21 12a9 9 0 0 1-15 6.7L3 16"/>
-                    </svg>
-                </div>
-            </div>
-
-            <div class="info-item">
-                <div class="info-icon">🛡️</div>
-                <div class="info-content">
-                    <div class="info-label">Aadhaar Number</div>
-                    <div class="info-value">XXXX-XXXX-1234</div>
-                </div>
-                <div class="info-status status-pending">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M21 2v6h-6M3 12a9 9 0 0 1 15-6.7L21 8M3 22v-6h6M21 12a9 9 0 0 1-15 6.7L3 16"/>
-                    </svg>
-                </div>
-            </div>
-
-            <div class="info-item">
-                <div class="info-icon">🏠</div>
-                <div class="info-content">
-                    <div class="info-label">Present Address</div>
-                    <div class="info-value">Indu Dreams, Flat 106/108, Rajarampuri 3rd Lane, Kolhapur, Maharashtra 416001</div>
-                </div>
-                <div class="info-status status-pending">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M21 2v6h-6M3 12a9 9 0 0 1 15-6.7L21 8M3 22v-6h6M21 12a9 9 0 0 1-15 6.7L3 16"/>
-                    </svg>
-                </div>
-            </div>
-        </div>
-
-     <%= link_to "Next: Your Work Profile", verifications_your_profile_path, class: "next-button" %>
+            <%= f.submit "Next: Your Work Profile", class: "next-button" %>
+        <% end %>
     </div>
 
     <div class="footer">

@@ -1,0 +1,75 @@
+<div class="flex justify-between items-center mb-8">
+  <h1 class="text-3xl font-bold">Admin Dashboard</h1>
+  <%= link_to "← Back to Website", root_path, class: "text-gray-600 hover:text-blue-500 font-medium transition duration-150 flex items-center" %>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
+  <div class="bg-white p-6 rounded-lg shadow-md border-l-4 border-blue-500">
+    <h3 class="text-gray-500 text-sm font-medium uppercase tracking-wider mb-2">Total Organizations</h3>
+    <p class="text-3xl font-bold text-gray-800"><%= Organization.count %></p>
+    <%= link_to "Manage Organizations", admins_organizations_path, class: "text-blue-500 hover:underline text-sm mt-4 inline-block" %>
+  </div>
+
+  <div class="bg-white p-6 rounded-lg shadow-md border-l-4 border-cyan-500">
+    <h3 class="text-gray-500 text-sm font-medium uppercase tracking-wider mb-2">Total Candidates</h3>
+    <p class="text-3xl font-bold text-gray-800"><%= Candidate.count %></p>
+    <%= link_to "View Candidates", admins_candidates_path, class: "text-cyan-500 hover:underline text-sm mt-4 inline-block" %>
+  </div>
+
+  <div class="bg-white p-6 rounded-lg shadow-md border-l-4 border-purple-500">
+    <h3 class="text-gray-500 text-sm font-medium uppercase tracking-wider mb-2">Pending Verifications</h3>
+    <p class="text-3xl font-bold text-gray-800"><%= VerificationCase.where(status: ["sent", "in_progress"]).count %></p>
+    <%= link_to "View Cases", admins_verification_cases_path, class: "text-purple-500 hover:underline text-sm mt-4 inline-block" %>
+  </div>
+
+  <div class="bg-white p-6 rounded-lg shadow-md border-l-4 border-green-500">
+    <h3 class="text-gray-500 text-sm font-medium uppercase tracking-wider mb-2">Completed Verifications</h3>
+    <p class="text-3xl font-bold text-gray-800"><%= VerificationCase.where(status: "completed").count %></p>
+    <%= link_to "View Completed", admins_verification_cases_path(status: "completed"), class: "text-green-500 hover:underline text-sm mt-4 inline-block" %>
+  </div>
+</div>
+
+  <div class="bg-white rounded-lg shadow-md overflow-hidden">
+    <div class="px-6 py-4 border-b border-gray-200 bg-gray-50 flex justify-between items-center">
+      <h2 class="text-xl font-bold text-gray-800">Recent Verification Cases</h2>
+      <%= link_to "New Case", new_admins_verification_case_path, class: "bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-md text-sm font-medium transition duration-150" %>
+    </div>
+    
+    <div class="overflow-x-auto">
+      <table class="min-w-full divide-y divide-gray-200">
+        <thead class="bg-gray-50">
+          <tr>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Candidate</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Organization</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Requested At</th>
+            <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+          </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+          <% VerificationCase.all.includes(:candidate, :organization).order(created_at: :desc).limit(5).each do |vc| %>
+            <tr>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm font-medium text-gray-900"><%= vc.candidate.full_name.presence || "Unknown" %></div>
+                <div class="text-sm text-gray-500"><%= vc.candidate.email %></div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                <%= vc.organization.name %>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full <%= status_badge_class(vc.status) %>">
+                  <%= vc.status.titleize %>
+                </span>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                <%= vc.requested_at&.strftime("%b %d, %Y") %>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                <%= link_to "View", admins_verification_case_path(vc), class: "text-purple-600 hover:text-purple-900" %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>

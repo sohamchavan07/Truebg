@@ -1,107 +1,145 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Profile Setup</title>
-  <style>
-    body {
-      background: linear-gradient(to bottom, #e6f0fa, #f0f0f0);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      margin: 0;
-      font-family: 'Roboto', sans-serif;
-    }
-
-    .profile-card {
-      background-color: white;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      padding: 20px;
-      width: 300px;
-      text-align: center;
-    }
-
-    h1 {
-      font-size: 20px;
-      font-weight: 700;
-      text-transform: uppercase;
-      color: black;
-      margin: 0 0 15px 0;
-    }
-
-    .dropdown {
-      background-color: #f0f0f0;
-      border: 1px solid #ccc;
-      font-size: 14px;
-      font-weight: 400;
-      color: black;
-      width: 100%;
-      padding: 10px;
-      border-radius: 5px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-      cursor: pointer;
-    }
-
-    .subtext {
-      font-size: 12px;
-      font-weight: 400;
-      color: gray;
-      margin: 5px 0;
-    }
-
-    .subtext:nth-of-type(2) {
-      color: black;
-    }
-
-    .next-button {
-      background-color: black;
-      color: white;
-      font-size: 16px;
-      font-weight: 600;
-      text-transform: uppercase;
-      border: none;
-      border-radius: 5px;
-      padding: 10px;
-      width: 100%;
-      cursor: pointer;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      margin-top: 20px;
-    }
-
-    footer {
-      margin-top: 20px;
-    }
-
-    footer p {
-      font-size: 10px;
-      font-weight: 400;
-      color: gray;
-    }
-
-    footer p span {
-      font-weight: 700;
-      color: #007BFF;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Professional Profile - Truebg</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background-color: #f4f7fb; color: #1f2937; line-height: 1.5; }
+        .container { max-width: 800px; margin: 40px auto; padding: 0 20px; }
+        .header { text-align: center; margin-bottom: 40px; }
+        .logo { font-size: 24px; font-weight: 700; color: #7a5af8; margin-bottom: 10px; }
+        .card { background: white; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); padding: 32px; margin-bottom: 24px; }
+        .section-title { font-size: 20px; font-weight: 700; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+        .history-item { border-left: 3px solid #7a5af8; padding-left: 16px; margin-bottom: 20px; }
+        .item-title { font-weight: 600; font-size: 16px; }
+        .item-subtitle { color: #6b7280; font-size: 14px; }
+        .form-group { margin-bottom: 16px; }
+        label { display: block; font-size: 14px; font-weight: 500; color: #374151; margin-bottom: 4px; }
+        input, select, textarea { width: 100%; padding: 10px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 14px; }
+        .btn { padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; border: none; transition: all 0.2s; }
+        .btn-primary { background-color: #7a5af8; color: white; width: 100%; font-size: 16px; margin-top: 20px; }
+        .btn-secondary { background-color: #f3f4f6; color: #374151; font-size: 14px; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .footer { text-align: center; color: #9ca3af; font-size: 14px; margin-top: 40px; }
+    </style>
 </head>
 <body>
-  <div class="profile-card">
-    <h1>YOUR PROFILE</h1>
-    <select class="dropdown">
-      <option value="123">WORK EXPERIENCE 1</option>
-      <option value="...">WORK EXPERIENCE 2</option>
-      <option value="...">WORK EXPERIENCE 3</option>
-    </select>
-    <p class="subtext">ENTER TOKEN FROM YOUR HARDWARE TOKEN</p>
-    <p class="subtext">ENTER TOKEN FROM Fetian OTP C100 AUTH</p>
-    <button class="next-button">NEXT</button>
-  </div>
-  <footer>
-    <p><span>truebg</span> &copy; 2023 TRUEBG. ALL RIGHTS RESERVED.</p>
-  </footer>
+    <div class="container">
+        <div class="header">
+            <div class="logo">truebg</div>
+            <h1>Complete Your Profile</h1>
+            <p>Add your work and education history for verification</p>
+        </div>
+
+        <!-- Work History Section -->
+        <div class="card">
+            <div class="section-title">
+                Work Experience
+            </div>
+            
+            <div id="work-history-list">
+                <% if @work_histories.any? %>
+                    <% @work_histories.each do |work| %>
+                        <div class="history-item">
+                            <div class="item-title"><%= work.job_title %> at <%= work.company_name %></div>
+                            <div class="item-subtitle"><%= work.start_date.strftime("%b %Y") %> - <%= work.current_job ? "Present" : work.end_date&.strftime("%b %Y") %></div>
+                            <div class="item-subtitle"><%= work.location %></div>
+                        </div>
+                    <% end %>
+                <% else %>
+                    <p style="color: #9ca3af; font-style: italic; margin-bottom: 20px;">No work history added yet.</p>
+                <% end %>
+            </div>
+
+            <hr style="margin: 20px 0; border: 0; border-top: 1px solid #f3f4f6;">
+
+            <h3 style="margin-bottom: 16px; font-size: 16px;">Add New Experience</h3>
+            <%= form_with(model: WorkHistory.new, url: verifications_add_work_history_path, local: true) do |f| %>
+                <div class="form-group">
+                    <%= f.label :company_name, "Company Name" %>
+                    <%= f.text_field :company_name, required: true, placeholder: "e.g. Google" %>
+                </div>
+                <div class="form-group">
+                    <%= f.label :job_title, "Job Title" %>
+                    <%= f.text_field :job_title, required: true, placeholder: "e.g. Software Engineer" %>
+                </div>
+                <div class="grid">
+                    <div class="form-group">
+                        <%= f.label :start_date %>
+                        <%= f.date_field :start_date, required: true %>
+                    </div>
+                    <div class="form-group">
+                        <%= f.label :end_date %>
+                        <%= f.date_field :end_date %>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label style="display: flex; align-items: center; gap: 8px;">
+                        <%= f.check_box :current_job %> I currently work here
+                    </label>
+                </div>
+                <div class="form-group">
+                    <%= f.label :location %>
+                    <%= f.text_field :location, placeholder: "e.g. New York, NY" %>
+                </div>
+                <%= f.submit "Add Experience", class: "btn btn-secondary" %>
+            <% end %>
+        </div>
+
+        <!-- Education History Section -->
+        <div class="card">
+            <div class="section-title">
+                Education
+            </div>
+
+            <div id="education-history-list">
+                <% if @education_histories.any? %>
+                    <% @education_histories.each do |edu| %>
+                        <div class="history-item">
+                            <div class="item-title"><%= edu.degree %> in <%= edu.field_of_study %></div>
+                            <div class="item-subtitle"><%= edu.institution_name %></div>
+                            <div class="item-subtitle">Graduated: <%= edu.graduation_year %></div>
+                        </div>
+                    <% end %>
+                <% else %>
+                    <p style="color: #9ca3af; font-style: italic; margin-bottom: 20px;">No education history added yet.</p>
+                <% end %>
+            </div>
+
+            <hr style="margin: 20px 0; border: 0; border-top: 1px solid #f3f4f6;">
+
+            <h3 style="margin-bottom: 16px; font-size: 16px;">Add New Education</h3>
+            <%= form_with(model: EducationHistory.new, url: verifications_add_education_history_path, local: true) do |f| %>
+                <div class="form-group">
+                    <%= f.label :institution_name, "School/University" %>
+                    <%= f.text_field :institution_name, required: true, placeholder: "e.g. Stanford University" %>
+                </div>
+                <div class="grid">
+                    <div class="form-group">
+                        <%= f.label :degree %>
+                        <%= f.text_field :degree, required: true, placeholder: "e.g. Bachelor of Science" %>
+                    </div>
+                    <div class="form-group">
+                        <%= f.label :field_of_study %>
+                        <%= f.text_field :field_of_study, required: true, placeholder: "e.g. Computer Science" %>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <%= f.label :graduation_year %>
+                    <%= f.number_field :graduation_year, required: true, min: 1900, max: Date.today.year + 10 %>
+                </div>
+                <%= f.submit "Add Education", class: "btn btn-secondary" %>
+            <% end %>
+        </div>
+
+        <%= button_to "Submit Profile for Verification", verifications_submit_verification_path, method: :post, class: "btn btn-primary" %>
+
+        <div class="footer">
+            <p>&copy; 2025 truebg. All rights reserved.</p>
+        </div>
+    </div>
 </body>
 </html>

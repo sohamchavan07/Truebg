@@ -1,0 +1,38 @@
+<div class="max-w-2xl mx-auto">
+  <div class="mb-8">
+    <%= link_to "← Back to Cases", admins_verification_cases_path, class: "text-blue-600 hover:text-blue-800 text-sm font-medium" %>
+    <h1 class="text-3xl font-bold mt-2">New Verification Case</h1>
+  </div>
+
+  <div class="bg-white rounded-lg shadow-md p-8">
+    <%= form_with(model: [:admins, @verification_case], local: true) do |f| %>
+      <% if @verification_case.errors.any? %>
+        <div class="bg-red-50 text-red-700 p-4 rounded-md mb-6">
+          <h2 class="text-sm font-bold"><%= pluralize(@verification_case.errors.count, "error") %> prohibited this case from being saved:</h2>
+          <ul class="list-disc list-inside text-xs mt-1">
+            <% @verification_case.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="space-y-6">
+        <div>
+          <%= f.label :candidate_email, "Candidate Email", class: "block text-sm font-medium text-gray-700 mb-1" %>
+          <%= f.email_field :candidate_email, required: true, class: "w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500", placeholder: "candidate@example.com" %>
+          <p class="mt-1 text-xs text-gray-500">If the candidate doesn't exist, an account will be created automatically.</p>
+        </div>
+
+        <div>
+          <%= f.label :organization_id, "Select Organization", class: "block text-sm font-medium text-gray-700 mb-1" %>
+          <%= f.collection_select :organization_id, @organizations, :id, :name, { prompt: "Choose an organization..." }, { class: "w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500", required: true } %>
+        </div>
+
+        <div class="pt-4">
+          <%= f.submit "Create & Send Invitation", class: "w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-md shadow-sm transition duration-150" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
