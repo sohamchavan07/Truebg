@@ -20,6 +20,9 @@ Rails.application.routes.draw do
     resources :candidates, only: [ :index, :show ]
   end
 
+  # Verification entry point
+  get "v/:token", to: "verifications#start", as: :start_verification
+
   # Phone verification flow
   get "phone_verification", to: "verifications#phone_verification"
   post "send_otp", to: "verifications#send_otp", as: :verifications_send_otp

@@ -1,21 +1,25 @@
 class VerificationsController < ApplicationController
-  before_action :authenticate_candidate!, except: [ :phone_verification, :send_otp, :otp_verification, :verify_otp ]
+  before_action :authenticate_candidate!, except: [ :start, :phone_verification, :send_otp, :otp_verification, :verify_otp ]
+
+  layout "candidate_flow"
+
+  def start
+    @verification_case = VerificationCase.find_by!(token: params[:token])
+    session[:verification_case_id] = @verification_case.id
+    redirect_to phone_verification_path
+  end
 
   def phone_verification
-    render layout: false
   end
 
   def otp_verification
-    render layout: false
   end
 
   def connect_digilocker
-    render layout: false
   end
 
   def primary_details
     @candidate = current_candidate
-    render layout: false
   end
 
   def update_primary_details
@@ -30,8 +34,8 @@ class VerificationsController < ApplicationController
     @candidate = current_candidate
     @work_histories = current_candidate.work_histories
     @education_histories = current_candidate.education_histories
-    render layout: false
   end
+
 
   def add_work_history
     @work_history = current_candidate.work_histories.build(work_history_params)

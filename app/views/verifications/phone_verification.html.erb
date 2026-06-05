@@ -1,342 +1,42 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Phone Verification - Truebg (Responsive)</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico:wght@400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    <style>
-        /* Custom font families for exact match */
-        .font-pacifico { font-family: 'Pacifico', sans-serif; }
-        .font-inter { font-family: 'Inter', sans-serif; }
-        
-        /* Custom styles for interactive elements */
-        .phone-input {
-            font-family: 'Inter', sans-serif;
-            background: transparent;
-            border: none;
-            outline: none;
-            width: 100%;
-            color: #202020;
-        }
-        
-        .edit-button, .save-button, .cancel-button {
-            font-family: 'Inter', sans-serif;
-            font-weight: 500;
-            cursor: pointer;
-            transition: color 0.2s;
-            background: none;
-            border: none;
-            padding: 0;
-        }
-        
-        .edit-button:hover {
-            color: #3e63dd;
-        }
-        
-        .save-button {
-            color: #3e63dd;
-        }
-        
-        .save-button:hover {
-            color: #3552c7;
-        }
-        
-        .cancel-button {
-            color: #646464;
-        }
-        
-        .cancel-button:hover {
-            color: #202020;
-        }
-        
-        .send-button {
-            background-color: #3e63dd;
-            transition: background-color 0.2s;
-        }
-        
-        .send-button:hover {
-            background-color: #3552c7;
-        }
-        
-        .send-button:active {
-            background-color: #2c46b3;
-        }
-
-        /* Responsive text sizing */
-        @media (max-width: 639px) {
-            .responsive-welcome { font-size: 20px; line-height: 28px; }
-            .responsive-description { font-size: 13px; line-height: 18px; }
-            .responsive-phone { font-size: 18px; line-height: 24px; }
-            .responsive-edit { font-size: 12px; line-height: 16px; }
-            .responsive-button { font-size: 14px; line-height: 20px; }
-            .responsive-privacy-title { font-size: 14px; line-height: 20px; }
-            .responsive-privacy-text { font-size: 12px; line-height: 18px; }
-            .responsive-privacy-link { font-size: 12px; line-height: 18px; }
-        }
-        
-        @media (min-width: 640px) and (max-width: 1023px) {
-            .responsive-welcome { font-size: 22px; line-height: 30px; }
-            .responsive-description { font-size: 14px; line-height: 20px; }
-            .responsive-phone { font-size: 20px; line-height: 28px; }
-            .responsive-edit { font-size: 13px; line-height: 18px; }
-            .responsive-button { font-size: 15px; line-height: 22px; }
-            .responsive-privacy-title { font-size: 15px; line-height: 22px; }
-            .responsive-privacy-text { font-size: 13px; line-height: 19px; }
-            .responsive-privacy-link { font-size: 13px; line-height: 19px; }
-        }
-        
-        @media (min-width: 1024px) {
-            .responsive-welcome { font-size: 24px; line-height: 32px; }
-            .responsive-description { font-size: 14px; line-height: 20px; }
-            .responsive-phone { font-size: 24px; line-height: 32px; }
-            .responsive-edit { font-size: 14px; line-height: 20px; }
-            .responsive-button { font-size: 16px; line-height: 24px; }
-            .responsive-privacy-title { font-size: 16px; line-height: 24px; }
-            .responsive-privacy-text { font-size: 14px; line-height: 20px; }
-            .responsive-privacy-link { font-size: 14px; line-height: 20px; }
-        }
-    </style>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        'pacifico': ['Pacifico', 'sans-serif'],
-                        'inter': ['Inter', 'sans-serif']
-                    }
-                }
-            }
-        }
-    </script>
-</head>
-<body class="bg-white">
-    <!-- Main Container -->
-    <div class="relative w-full" data-name="1">
-        
-        <!-- Background Component -->
-        <div class="min-h-screen bg-white flex flex-col items-center justify-between relative overflow-hidden" data-name="1">
-            
-            <!-- Background Gradient -->
-            <div class="absolute h-[200px] sm:h-[250px] lg:h-[300px] left-0 top-0 w-full">
-                <svg class="block w-full h-full" fill="none" preserveAspectRatio="none" viewBox="0 0 1440 300">
-                    <path d="M0 0H1440V300H0V0Z" fill="url(#paint0_linear_2_2404)" id="Rectangle 1" />
-                    <defs>
-                        <linearGradient gradientUnits="userSpaceOnUse" id="paint0_linear_2_2404" x1="1438.61" x2="163.92" y1="-2.79239" y2="630.131">
-                            <stop offset="0.24" stop-color="#F0F6FF" />
-                            <stop offset="1" stop-color="#F3F0FF" />
-                        </linearGradient>
-                    </defs>
-                </svg>
-            </div>
-            
-            <!-- Content Area -->
-            <div class="flex-1 flex items-center justify-center w-full px-4 py-8 sm:py-12 lg:py-16">
-                <div class="w-full max-w-md relative z-10">
-                    
-                    <!-- Main Content -->
-                    <div class="flex flex-col gap-[24px] sm:gap-[28px] lg:gap-[32px] items-center justify-start w-full" data-name="Stack">
-                        
-                        <!-- Logo -->
-                        <div class="h-[28px] sm:h-[32px] lg:h-[37px] relative w-full max-w-[200px] sm:max-w-[220px] lg:max-w-[245.463px] mx-auto mb-6 sm:mb-8" data-name="Stack">
-                            <svg class="block w-full h-full" fill="none" preserveAspectRatio="none" viewBox="0 0 246 37">
-                                <g id="Stack">
-                                    <!-- Simplified Logoipsum text -->
-                                    <text x="10" y="25" fill="#202020" font-family="Inter" font-size="20" font-weight="600">Logoipsum</text>
-                                </g>
-                            </svg>
-                        </div>
-
-                        <!-- Main Verification Card -->
-                        <div class="bg-white relative rounded-[8px] w-full" data-name="Stack">
-                            <div class="box-border flex flex-col gap-[20px] sm:gap-[22px] lg:gap-[24px] items-center justify-start overflow-hidden p-[20px] sm:p-[22px] lg:p-[24px] relative w-full">
-                                
-                                <!-- Welcome Message and Description -->
-                                <div class="flex flex-col gap-[20px] sm:gap-[22px] lg:gap-[24px] items-center justify-center relative w-full" data-name="Stack">
-                                    <div class="flex flex-col gap-[8px] items-start justify-start relative w-full">
-                                        <!-- Welcome Message -->
-                                        <div class="flex flex-col font-inter font-semibold items-start justify-center relative text-[#202020] w-full" data-name="Welcome message">
-                                            <div class="relative w-full">
-                                               <p class="responsive-welcome text-center">Welcome</p>
-                                            </div>
-                                            <div class="relative w-full">
-                                                <p class="responsive-welcome text-center">Let's get you verified.
-
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <!-- Description -->
-                                        <div class="font-inter font-normal relative text-[#646464] w-full">
-                                            <p class="responsive-description">Logoipsum Solutions has initiated a secure background check for your application via their trusted partner, Truebg. To begin, please confirm your mobile number below.</p>
-                                        </div>
-                                    </div>
-
-                                    <!-- Phone Number Field -->
-                                    <div class="h-[48px] sm:h-[52px] lg:h-[56px] relative rounded-[8px] w-full" data-name="Stack">
-                                        <div class="flex flex-row items-center overflow-hidden relative w-full h-full">
-                                            <div class="box-border flex gap-[8px] h-full items-center justify-start px-[12px] sm:px-[14px] lg:px-[16px] py-[8px] lg:py-[9px] relative text-[#202020] w-full">
-                                                <div class="flex-1 flex flex-col font-inter font-semibold justify-center relative min-w-0">
-                                                    <input 
-                                                        type="text" 
-                                                        id="phoneInput"
-                                                        class="phone-input responsive-phone"
-                                                        value="+91-90******10"
-                                                        style="display: none;"
-                                                    />
-                                                    <p id="phoneDisplay" class="responsive-phone truncate">+91-90******10</p>
-                                                </div>
-                                                <div class="flex flex-col font-inter font-medium justify-center relative shrink-0">
-                                                    <div id="editControls">
-                                                        <button id="editButton" class="edit-button responsive-edit whitespace-nowrap">Edit</button>
-                                                    </div>
-                                                    <div id="saveControls" class="flex gap-1 sm:gap-2" style="display: none;">
-                                                        <button id="saveButton" class="save-button responsive-edit whitespace-nowrap">Save</button>
-                                                        <button id="cancelButton" class="cancel-button responsive-edit whitespace-nowrap">Cancel</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="absolute border-[#d9d9d9] border-[1.25px] border-solid inset-0 pointer-events-none rounded-[8px]"></div>
-                                    </div>
-
-                                    <!-- Send OTP Button -->
-                                    <button 
-                                        id="sendOtpButton"
-                                        class="send-button h-[44px] sm:h-[48px] lg:h-[52px] relative rounded-[8px] w-full cursor-pointer" 
-                                        data-name="Button (Standard)"
-                                    >
-                                        <div class="flex flex-row items-center justify-center overflow-hidden relative w-full h-full">
-                                            <div class="box-border flex gap-[8px] h-full items-center justify-center px-[20px] sm:px-[22px] lg:px-[24px] py-[10px] sm:py-[11px] lg:py-[12px] relative w-full">
-                                                <div class="font-inter font-medium relative text-center text-white">
-                                                    <p class="responsive-button whitespace-nowrap">Send Verification OTP</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="absolute border border-[#d9d9d9] border-solid inset-0 pointer-events-none rounded-[8px] shadow-[0px_1px_3px_0px_rgba(0,0,0,0.1),0px_1px_2px_0px_rgba(0,0,0,0.06)]"></div>
-                        </div>
-
-                        <!-- Privacy Information Card -->
-                        <div class="relative rounded-[8px] w-full" data-name="Stack">
-                            <div class="box-border flex flex-col gap-[20px] sm:gap-[22px] lg:gap-[24px] items-center justify-start overflow-hidden p-[20px] sm:p-[22px] lg:p-[24px] relative w-full">
-                                <div class="flex flex-col gap-[8px] items-center justify-center relative text-center w-full" data-name="Stack">
-                                    <div class="font-inter font-semibold relative text-[#202020] w-full">
-                                        <p class="responsive-privacy-title">Your Privacy</p>
-                                    </div>
-                                    <div class="font-inter font-normal relative text-[#646464] w-full">
-                                        <p class="responsive-privacy-text mb-[12px] sm:mb-[13px] lg:mb-[14px]">We aim to keep the data you share during this process private, safe and secure. Learn more in our </p>
-                                        <p class="responsive-privacy-text">Privacy Policy.</p>
-                                    </div>
-                                    <div class="font-inter font-semibold relative text-[#202020] w-full">
-                                        <p class="responsive-privacy-link">How Background Verification Works?</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="absolute border border-[#d9d9d9] border-solid inset-0 pointer-events-none rounded-[8px]"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Footer -->
-            <div class="relative z-10 pb-8 px-4 w-full">
-                <div class="flex flex-col gap-[16px] items-center justify-start text-[#646464] text-center w-full max-w-[576px] mx-auto px-4" data-name="Footer">
-                    <div class="font-pacifico relative text-[24px] w-full">
-                        <p class="leading-[32px]">truebg</p>
-                    </div>
-                    <div class="font-inter font-normal relative text-[12px] w-full">
-                        <p class="leading-[16px]">Copyright © 2025 Truebg. All Rights Reserved.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+<div class="max-w-md mx-auto">
+  <!-- Header -->
+  <div class="mb-10 text-center">
+    <div class="inline-flex items-center justify-center p-3 bg-indigo-50 rounded-2xl mb-4 shadow-sm border border-indigo-100">
+      <svg class="w-8 h-8 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
     </div>
+    <h1 class="text-4xl font-extrabold text-gray-900 tracking-tight mb-3">Verify Phone</h1>
+    <p class="text-lg text-gray-500 max-w-sm mx-auto">We'll send you a secure one-time password to verify your mobile number.</p>
+  </div>
 
-    <script>
-        // Phone number editing functionality
-        let isEditing = false;
-        let phoneNumber = "+91-90******10";
-        let tempPhoneNumber = phoneNumber;
+  <div class="bg-white rounded-[2rem] shadow-xl shadow-gray-200/50 border border-gray-100 overflow-hidden">
+    <div class="p-10">
+      <div class="flex items-center justify-center mb-8">
+        <div class="flex items-center gap-4">
+          <div class="w-8 h-8 rounded-full bg-indigo-500 text-white flex items-center justify-center text-sm font-bold shadow-sm">1</div>
+          <div class="h-0.5 w-12 bg-gray-100"></div>
+          <div class="w-8 h-8 rounded-full bg-gray-100 text-gray-400 flex items-center justify-center text-sm font-bold">2</div>
+        </div>
+      </div>
 
-        const phoneInput = document.getElementById('phoneInput');
-        const phoneDisplay = document.getElementById('phoneDisplay');
-        const editButton = document.getElementById('editButton');
-        const saveButton = document.getElementById('saveButton');
-        const cancelButton = document.getElementById('cancelButton');
-        const editControls = document.getElementById('editControls');
-        const saveControls = document.getElementById('saveControls');
-        const sendOtpButton = document.getElementById('sendOtpButton');
+      <%= form_with url: verifications_send_otp_path, method: :post, class: "space-y-6" do |f| %>
+        <div class="space-y-2">
+          <%= f.label :phone, "Mobile Number", class: "text-sm font-semibold text-gray-700" %>
+          <div class="relative group">
+            <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 font-bold tracking-tight pr-3 border-r border-gray-200">+91</span>
+            <%= f.text_field :phone, value: session[:phone], placeholder: "9876543210", class: "w-full pl-16 pr-4 py-4 bg-gray-50 border border-gray-200 rounded-2xl focus:bg-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all text-lg font-medium tracking-wider", required: true %>
+          </div>
+          <p class="text-xs text-gray-400 pl-1">A 5-digit security code will be sent via SMS.</p>
+        </div>
 
-        function handleEdit() {
-            tempPhoneNumber = phoneNumber;
-            phoneInput.value = tempPhoneNumber;
-            isEditing = true;
-            
-            phoneDisplay.style.display = 'none';
-            phoneInput.style.display = 'block';
-            editControls.style.display = 'none';
-            saveControls.style.display = 'flex';
-            
-            phoneInput.focus();
-        }
+        <div class="pt-2">
+          <%= f.submit "Send Verification OTP", class: "w-full py-4 px-6 text-white bg-indigo-600 hover:bg-indigo-700 font-bold rounded-2xl shadow-lg shadow-indigo-100 transition-all transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
 
-        function handleSave() {
-            phoneNumber = phoneInput.value;
-            tempPhoneNumber = phoneNumber;
-            isEditing = false;
-            
-            phoneDisplay.textContent = phoneNumber;
-            phoneDisplay.style.display = 'block';
-            phoneInput.style.display = 'none';
-            editControls.style.display = 'block';
-            saveControls.style.display = 'none';
-        }
-
-        function handleCancel() {
-            phoneInput.value = phoneNumber;
-            tempPhoneNumber = phoneNumber;
-            isEditing = false;
-            
-            phoneDisplay.style.display = 'block';
-            phoneInput.style.display = 'none';
-            editControls.style.display = 'block';
-            saveControls.style.display = 'none';
-        }
-
-        function handleSendOtp() {
-            alert(`OTP sent to ${phoneNumber}`);
-        }
-
-        // Event listeners
-        editButton.addEventListener('click', handleEdit);
-        saveButton.addEventListener('click', handleSave);
-        cancelButton.addEventListener('click', handleCancel);
-        sendOtpButton.addEventListener('click', handleSendOtp);
-
-        // Input event listeners
-        phoneInput.addEventListener('input', (e) => {
-            tempPhoneNumber = e.target.value;
-        });
-
-        phoneInput.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') {
-                handleSave();
-            } else if (e.key === 'Escape') {
-                handleCancel();
-            }
-        });
-
-        phoneInput.addEventListener('blur', () => {
-            // Small delay to allow clicking save/cancel buttons
-            setTimeout(() => {
-                if (isEditing) {
-                    handleSave();
-                }
-            }, 100);
-        });
-    </script>
-</body>
-</html>
+  <div class="mt-8 flex items-center justify-center gap-2 text-gray-400">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+    <span class="text-sm font-medium italic">End-to-end encrypted verification</span>
+  </div>
+</div>
