@@ -1,148 +1,69 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Verification Page</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: system-ui, sans-serif;
-      background: linear-gradient(to bottom, #eef0f8, #ffffff);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-    }
-    .card {
-      background: white;
-      border-radius: 12px;
-      width: 360px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-      padding: 24px;
-      box-sizing: border-box;
-      text-align: center;
-    }
-    .logo {
-      height: 32px;
-      margin-bottom: 20px;
-    }
-    .alert {
-      background: #f0fdf4;
-      border: 1px solid #bbf7d0;
-      color: #15803d;
-      font-size: 14px;
-      border-radius: 8px;
-      padding: 8px 12px;
-      display: inline-block;
-      text-align: left;
-      margin-bottom: 20px;
-    }
-    .title {
-      font-size: 18px;
-      font-weight: 600;
-      margin-bottom: 8px;
-    }
-    .desc {
-      font-size: 14px;
-      color: #555;
-      margin-bottom: 20px;
-    }
-    .list-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      padding: 12px 0;
-      border-top: 1px solid #eee;
-      cursor: pointer;
-    }
-    .list-item:first-of-type {
-      border-top: none;
-    }
-    .list-text {
-      text-align: left;
-    }
-    .list-title {
-      font-size: 14px;
-      font-weight: 500;
-    }
-    .list-sub {
-      font-size: 12px;
-      color: #666;
-    }
-    .arrow {
-      color: #999;
-      font-size: 16px;
-    }
-    .btn {
-      width: 100%;
-      background: #e5e7eb;
-      color: #6b7280;
-      font-weight: 500;
-      padding: 12px;
-      border: none;
-      border-radius: 8px;
-      margin-top: 20px;
-      cursor: not-allowed;
-    }
-    .link {
-      font-size: 13px;
-      color: #555;
-      margin-top: 12px;
-      cursor: pointer;
-    }
-    .link:hover {
-      text-decoration: underline;
-    }
-    .footer {
-      font-size: 11px;
-      color: #999;
-      margin-top: 24px;
-    }
-  </style>
-</head>
-<body>
-
-  <div class="card">
-    <!-- Logo -->
-
-    <!-- OTP Verified -->
-    <div class="alert">OTP verified.</div>
-
-    <!-- Title & Description -->
-    <div class="title">The Express Path to Verification</div>
-    <div class="desc">
-      Save time by letting us pre-fill your details. Simply upload your latest résumé and connect to DigiLocker.
-      We'll do the heavy lifting.
+<div class="max-w-md mx-auto">
+  <!-- Header -->
+  <div class="mb-10 text-center">
+    <div class="inline-flex items-center justify-center p-3 bg-indigo-50 rounded-2xl mb-4 shadow-sm border border-indigo-100">
+      <svg class="w-8 h-8 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
     </div>
-
-    <!-- Upload Resume -->
-    <div class="list-item">
-      <div class="list-text">
-        <div class="list-title">Upload Your Résumé</div>
-        <div class="list-sub">We'll parse your work and education history automatically</div>
-      </div>
-      <div class="arrow">&#8250;</div>
-    </div>
-
-    <!-- DigiLocker -->
-    <%= link_to verifications_primary_details_path, class: "list-item", style: "text-decoration: none; color: inherit;" do %>
-      <div class="list-text">
-        <div class="list-title">Connect with DigiLocker</div>
-        <div class="list-sub">Securely fetch your verified ID and Address proofs.</div>
-      </div>
-      <div class="arrow">&#8250;</div>
-    <% end %>
-
-    <!-- Button -->
-    <button class="btn" disabled>Review Your Details</button>
-
-    <!-- Link -->
-    <%= link_to "Nevermind, I'll Enter Manually", verifications_primary_details_path, class: "link", style: "display: block; text-decoration: none;" %>
-
-    <!-- Footer -->
-    <div class="footer">Copyright © 2025 Truebg. All Rights Reserved.</div>
+    <h1 class="text-4xl font-extrabold text-gray-900 tracking-tight mb-3">Identity Proof</h1>
+    <p class="text-lg text-gray-500 max-w-sm mx-auto">Connect your DigiLocker to fetch verified identity documents instantly.</p>
   </div>
 
-</body>
-</html>
+  <div class="bg-white rounded-[2rem] shadow-xl shadow-gray-200/50 border border-gray-100 overflow-hidden">
+    <div class="p-10">
+      <div class="flex items-center justify-center mb-8">
+        <div class="flex items-center gap-4">
+          <div class="w-8 h-8 rounded-full bg-green-500 text-white flex items-center justify-center text-sm font-bold shadow-sm">✓</div>
+          <div class="h-0.5 w-12 bg-green-500"></div>
+          <div class="w-8 h-8 rounded-full bg-green-500 text-white flex items-center justify-center text-sm font-bold shadow-sm">✓</div>
+          <div class="h-0.5 w-12 bg-indigo-500"></div>
+          <div class="w-8 h-8 rounded-full bg-indigo-500 text-white flex items-center justify-center text-sm font-bold shadow-sm">2</div>
+          <div class="h-0.5 w-12 bg-gray-100"></div>
+          <div class="w-8 h-8 rounded-full bg-gray-100 text-gray-400 flex items-center justify-center text-sm font-bold">3</div>
+        </div>
+      </div>
+
+      <div class="bg-gray-50/50 rounded-2xl p-6 mb-8 border border-gray-100">
+        <h3 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-6">Automated Check List</h3>
+        <div class="space-y-5">
+          <div class="flex items-start gap-4">
+            <div class="shrink-0 p-1.5 bg-green-100 rounded-lg text-green-600">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+            </div>
+            <div>
+              <p class="text-sm font-bold text-gray-900 leading-tight">Aadhaar Verification</p>
+              <p class="text-xs text-gray-500 mt-0.5">Real-time authenticity validation</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-4">
+            <div class="shrink-0 p-1.5 bg-green-100 rounded-lg text-green-600">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+            </div>
+            <div>
+              <p class="text-sm font-bold text-gray-900 leading-tight">PAN Data Extraction</p>
+              <p class="text-xs text-gray-500 mt-0.5">Secure tax record fetching</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-4">
+            <div class="shrink-0 p-1.5 bg-indigo-100 rounded-lg text-indigo-600">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+            </div>
+            <div>
+              <p class="text-sm font-bold text-gray-900 leading-tight">Instant Decisioning</p>
+              <p class="text-xs text-gray-500 mt-0.5">Machine-driven score generation</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="space-y-4">
+        <%= link_to verifications_primary_details_path, class: "w-full py-4 px-6 text-white bg-indigo-600 hover:bg-indigo-700 font-bold rounded-2xl shadow-lg shadow-indigo-100 transition-all transform hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center gap-2 group" do %>
+          Connect DigiLocker
+          <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+        <% end %>
+        <p class="text-center text-[10px] text-gray-400 px-6 uppercase tracking-wider font-medium">
+          Powered by Gov-Auth API &bull; 256-bit Encrypted
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

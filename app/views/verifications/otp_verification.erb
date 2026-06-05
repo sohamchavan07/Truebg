@@ -1,212 +1,83 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Mobile Verification</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    @import url('https://fonts.googleapis.com/css?family=Inter:400,600&display=swap');
-    body {
-      min-height: 100vh;
-      margin: 0;
-      font-family: 'Inter', Arial, sans-serif;
-      background: linear-gradient(135deg, #f8fbff 0%, #f3f6fa 100%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-    }
-    .logo {
-      margin-top: 48px;
-      margin-bottom: 32px;
-      text-align: center;
-    }
-    .logo img {
-      height: 40px;
-    }
-    .card {
-      background: #fff;
-      border-radius: 12px;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-      padding: 40px 32px 32px 32px;
-      max-width: 370px;
-      width: 100%;
-      margin: 0 auto;
-      text-align: center;
-      border: 1px solid #ececec;
-    }
-    .card h2 {
-      font-size: 1.5rem;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-      color: #111;
-    }
-    .card h3 {
-      font-size: 1.1rem;
-      font-weight: 600;
-      margin-bottom: 1.2rem;
-      color: #222;
-    }
-    .card p {
-      font-size: 0.98rem;
-      color: #555;
-      margin-bottom: 1.5rem;
-      line-height: 1.4;
-    }
-    .otp-inputs {
-      display: flex;
-      gap: 12px;
-      justify-content: center;
-      margin-bottom: 24px;
-    }
-    .otp-inputs input {
-      width: 48px;
-      height: 48px;
-      font-size: 1.5rem;
-      text-align: center;
-      border: 1.5px solid #d1d5db;
-      border-radius: 8px;
-      outline: none;
-      transition: border 0.2s;
-      background: #fafbfc;
-    }
-    .otp-inputs input:focus {
-      border-color: #111;
-    }
-    .btn {
-      width: 100%;
-      padding: 14px 0;
-      background: #111;
-      color: #fff;
-      font-size: 1rem;
-      font-weight: 600;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background 0.2s;
-      margin-bottom: 8px;
-    }
-    .btn:hover {
-      background: #222;
-    }
-    .resend-section {
-      margin-top: 32px;
-      text-align: center;
-      color: #888;
-      font-size: 0.98rem;
-    }
-    .resend-section .resend-link {
-      color: #111;
-      font-weight: 600;
-      cursor: pointer;
-      text-decoration: underline;
-      margin-left: 8px;
-    }
-    .footer {
-      margin-top: auto;
-      text-align: center;
-      color: #888;
-      font-size: 1rem;
-      width: 100%;
-      padding-bottom: 32px;
-    }
-    .footer .brand {
-      font-family: 'Pacifico', cursive;
-      font-size: 1.2rem;
-      color: #888;
-      margin-bottom: 4px;
-      display: block;
-    }
-    .footer small {
-      display: block;
-      margin-top: 2px;
-      font-size: 0.85rem;
-      color: #aaa;
-    }
-  </style>
-</head>
-<body>
-  <div class="logo">
-    <img src="https://dummyimage.com/180x40/cccccc/000000&text=Logoipsum" alt="Logoipsum" height="40">
-  </div>
-  <div class="card">
-    <h2>Welcome!</h2>
-    <h3>Lets get you verified</h3>
-    <p>
-      We've sent a 5-digit verification code to <%= session[:phone] || '+91 ******1234' %>.<br>
-      Please enter it below to continue.
-    </p>
-    <%= form_with url: verifications_verify_otp_path, method: :post, local: true do |f| %>
-      <div class="otp-inputs">
-        <%= f.text_field :otp_1, maxlength: 1, inputmode: "numeric", pattern: "[0-9]*", required: true, autocomplete: "one-time-code" %>
-        <%= f.text_field :otp_2, maxlength: 1, inputmode: "numeric", pattern: "[0-9]*", required: true %>
-        <%= f.text_field :otp_3, maxlength: 1, inputmode: "numeric", pattern: "[0-9]*", required: true %>
-        <%= f.text_field :otp_4, maxlength: 1, inputmode: "numeric", pattern: "[0-9]*", required: true %>
-        <%= f.text_field :otp_5, maxlength: 1, inputmode: "numeric", pattern: "[0-9]*", required: true %>
-      </div>
-      <%= f.submit "Verify OTP", class: "btn" %>
-    <% end %>
-    <div class="resend-section">
-      Didn't receive the code? Resend it in (00:34)<br>
-      <%= link_to "Resend OTP", verifications_send_otp_path, method: :post, class: "resend-link" %>
+<div class="max-w-md mx-auto">
+  <!-- Header -->
+  <div class="mb-10 text-center">
+    <div class="inline-flex items-center justify-center p-3 bg-indigo-50 rounded-2xl mb-4 shadow-sm border border-indigo-100">
+      <svg class="w-8 h-8 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A10.003 10.003 0 0012 3a9.99 9.99 0 00-4.556 1.088m.054 15.843l2.853-2.853m0 0A7.5 7.5 0 1112 4.5a7.5 7.5 0 01-1.643 14.571l-2.853 2.853"></path></svg>
     </div>
-  </div>
-  <div class="footer">
-    <div class="brand">Truebg</div>
-    <small>Copyright © 2025 Truebg. All Rights Reserved.</small>
+    <h1 class="text-4xl font-extrabold text-gray-900 tracking-tight mb-3">Check Phone</h1>
+    <p class="text-lg text-gray-500 max-w-sm mx-auto">We've sent a 5-digit verification code to <span class="font-bold text-gray-900">+91 <%= session[:phone] %></span></p>
   </div>
 
-  <script>
-    // Auto-focus next input field when digit is entered
-    document.addEventListener('DOMContentLoaded', function() {
-      const otpInputs = document.querySelectorAll('.otp-inputs input');
-      
-      otpInputs.forEach((input, index) => {
-        // Only allow numbers
-        input.addEventListener('keypress', function(e) {
-          const charCode = e.which ? e.which : e.keyCode;
-          if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-            e.preventDefault();
-            return false;
-          }
-        });
-        
-        // Prevent paste of non-numeric content
-        input.addEventListener('paste', function(e) {
-          e.preventDefault();
-          const pastedData = (e.clipboardData || window.clipboardData).getData('text');
-          const otpDigits = pastedData.replace(/\D/g, '').split('').slice(0, 5);
+  <div class="bg-white rounded-[2rem] shadow-xl shadow-gray-200/50 border border-gray-100 overflow-hidden">
+    <div class="p-10">
+      <div class="flex items-center justify-center mb-8">
+        <div class="flex items-center gap-4">
+          <div class="w-8 h-8 rounded-full bg-green-500 text-white flex items-center justify-center text-sm font-bold shadow-sm">✓</div>
+          <div class="h-0.5 w-12 bg-indigo-500"></div>
+          <div class="w-8 h-8 rounded-full bg-indigo-500 text-white flex items-center justify-center text-sm font-bold shadow-sm">1</div>
+          <div class="h-0.5 w-12 bg-gray-100"></div>
+          <div class="w-8 h-8 rounded-full bg-gray-100 text-gray-400 flex items-center justify-center text-sm font-bold">2</div>
+        </div>
+      </div>
+
+      <%= form_with url: verifications_verify_otp_path, method: :post, id: "otp-form", class: "space-y-8" do |f| %>
+        <div class="flex justify-between gap-3 max-w-xs mx-auto">
+          <% 5.times do |i| %>
+            <%= f.text_field "otp_#{i+1}", 
+                class: "w-full h-16 text-center text-2xl font-bold bg-gray-50 border border-gray-200 rounded-2xl focus:bg-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all otp-input", 
+                maxlength: 1, 
+                pattern: "[0-9]*", 
+                inputmode: "numeric", 
+                required: true,
+                autocomplete: "one-time-code" %>
+          <% end %>
+        </div>
+
+        <div class="space-y-4">
+          <%= f.submit "Verify & Continue", class: "w-full py-4 px-6 text-white bg-indigo-600 hover:bg-indigo-700 font-bold rounded-2xl shadow-lg shadow-indigo-100 transition-all transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer" %>
           
-          otpDigits.forEach((digit, i) => {
-            if (otpInputs[i]) {
-              otpInputs[i].value = digit;
-            }
-          });
-          
-          if (otpDigits.length > 0) {
-            const nextIndex = Math.min(otpDigits.length, otpInputs.length - 1);
-            otpInputs[nextIndex].focus();
-          }
-        });
-        
-        input.addEventListener('input', function(e) {
-          // Remove any non-numeric characters
-          this.value = this.value.replace(/[^0-9]/g, '');
-          
-          if (e.target.value.length === 1) {
-            if (index < otpInputs.length - 1) {
-              otpInputs[index + 1].focus();
-            }
-          }
-        });
-        
-        input.addEventListener('keydown', function(e) {
-          if (e.key === 'Backspace' && e.target.value === '' && index > 0) {
-            otpInputs[index - 1].focus();
-          }
-        });
-      });
+          <div class="text-center">
+            <p class="text-sm text-gray-500">
+              Didn't receive code? 
+              <%= link_to "Resend OTP", verifications_send_otp_path(phone: session[:phone]), data: { turbo_method: :post }, class: "text-indigo-600 font-bold hover:text-indigo-700 transition-colors" %>
+            </p>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="mt-8">
+    <%= link_to phone_verification_path, class: "flex items-center justify-center gap-2 text-sm font-semibold text-gray-400 hover:text-gray-600 transition-colors" do %>
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+      Edit mobile number
+    <% end %>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('.otp-input').forEach((input, index, inputs) => {
+    input.addEventListener('input', (e) => {
+      if (e.target.value.length === 1 && index < inputs.length - 1) {
+        inputs[index + 1].focus();
+      }
     });
-  </script>
-</body>
-</html>
+
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Backspace' && e.target.value.length === 0 && index > 0) {
+        inputs[index - 1].focus();
+      }
+    });
+
+    // Handle paste
+    input.addEventListener('paste', (e) => {
+      const data = e.clipboardData.getData('text').trim();
+      if (data.length === inputs.length && /^\d+$/.test(data)) {
+        data.split('').forEach((char, i) => {
+          inputs[i].value = char;
+        });
+        inputs[inputs.length - 1].focus();
+      }
+    });
+  });
+</script>

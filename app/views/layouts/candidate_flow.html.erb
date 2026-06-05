@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Candidate Verification | Truebg</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "candidate_flow", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+    
+    <style>
+      /* Quick overrides or helper classes if needed */
+      .fade-in { animation: fadeIn 0.5s ease-in; }
+      @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+  </head>
+
+  <body>
+    <% if candidate_signed_in? %>
+      <nav style="display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; background: var(--card-bg); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 10;">
+        <div class="logo-text" style="margin: 0; font-size: 1.5rem;">truebg</div>
+        <div style="display: flex; gap: 1.5rem; align-items: center;">
+          <% if current_candidate.first_name.present? %>
+            <%= link_to "Dashboard", verifications_your_profile_path, class: "text-gray-600 hover:text-primary transition-colors", style: "font-weight: 500; text-decoration: none;" %>
+          <% end %>
+          <%= link_to "Primary Details", verifications_primary_details_path, class: "text-gray-600 hover:text-primary transition-colors", style: "font-weight: 500; text-decoration: none;" %>
+          <%= button_to "Sign out", destroy_candidate_session_path, method: :delete, class: "btn-secondary", style: "padding: 0.5rem 1rem; width: auto; font-size: 0.875rem;" %>
+        </div>
+      </nav>
+      <div class="flow-container dashboard-flow" style="margin-top: 2rem;">
+    <% else %>
+      <div class="flow-container">
+        <div class="logo-container">
+          <div class="logo-text">truebg</div>
+        </div>
+    <% end %>
+      
+      <% if flash[:notice] %>
+        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
+          <span class="block sm:inline"><%= flash[:notice] %></span>
+        </div>
+      <% end %>
+      
+      <% if flash[:alert] %>
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+          <span class="block sm:inline"><%= flash[:alert] %></span>
+        </div>
+      <% end %>
+
+      <%= yield %>
+      
+      <footer class="mt-12 text-center text-sm text-gray-400">
+        <p>&copy; <%= Time.current.year %> Truebg. All Rights Reserved.</p>
+        <div class="mt-2 space-x-4">
+          <a href="#" class="hover:text-gray-600 transition-colors">Privacy Policy</a>
+          <a href="#" class="hover:text-gray-600 transition-colors">Terms of Service</a>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

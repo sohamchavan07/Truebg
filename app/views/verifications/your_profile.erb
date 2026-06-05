@@ -1,145 +1,275 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Professional Profile - Truebg</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; background-color: #f4f7fb; color: #1f2937; line-height: 1.5; }
-        .container { max-width: 800px; margin: 40px auto; padding: 0 20px; }
-        .header { text-align: center; margin-bottom: 40px; }
-        .logo { font-size: 24px; font-weight: 700; color: #7a5af8; margin-bottom: 10px; }
-        .card { background: white; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); padding: 32px; margin-bottom: 24px; }
-        .section-title { font-size: 20px; font-weight: 700; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
-        .history-item { border-left: 3px solid #7a5af8; padding-left: 16px; margin-bottom: 20px; }
-        .item-title { font-weight: 600; font-size: 16px; }
-        .item-subtitle { color: #6b7280; font-size: 14px; }
-        .form-group { margin-bottom: 16px; }
-        label { display: block; font-size: 14px; font-weight: 500; color: #374151; margin-bottom: 4px; }
-        input, select, textarea { width: 100%; padding: 10px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 14px; }
-        .btn { padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; border: none; transition: all 0.2s; }
-        .btn-primary { background-color: #7a5af8; color: white; width: 100%; font-size: 16px; margin-top: 20px; }
-        .btn-secondary { background-color: #f3f4f6; color: #374151; font-size: 14px; }
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-        .footer { text-align: center; color: #9ca3af; font-size: 14px; margin-top: 40px; }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="header">
-            <div class="logo">truebg</div>
-            <h1>Complete Your Profile</h1>
-            <p>Add your work and education history for verification</p>
-        </div>
-
-        <!-- Work History Section -->
-        <div class="card">
-            <div class="section-title">
-                Work Experience
-            </div>
-            
-            <div id="work-history-list">
-                <% if @work_histories.any? %>
-                    <% @work_histories.each do |work| %>
-                        <div class="history-item">
-                            <div class="item-title"><%= work.job_title %> at <%= work.company_name %></div>
-                            <div class="item-subtitle"><%= work.start_date.strftime("%b %Y") %> - <%= work.current_job ? "Present" : work.end_date&.strftime("%b %Y") %></div>
-                            <div class="item-subtitle"><%= work.location %></div>
-                        </div>
-                    <% end %>
-                <% else %>
-                    <p style="color: #9ca3af; font-style: italic; margin-bottom: 20px;">No work history added yet.</p>
-                <% end %>
-            </div>
-
-            <hr style="margin: 20px 0; border: 0; border-top: 1px solid #f3f4f6;">
-
-            <h3 style="margin-bottom: 16px; font-size: 16px;">Add New Experience</h3>
-            <%= form_with(model: WorkHistory.new, url: verifications_add_work_history_path, local: true) do |f| %>
-                <div class="form-group">
-                    <%= f.label :company_name, "Company Name" %>
-                    <%= f.text_field :company_name, required: true, placeholder: "e.g. Google" %>
-                </div>
-                <div class="form-group">
-                    <%= f.label :job_title, "Job Title" %>
-                    <%= f.text_field :job_title, required: true, placeholder: "e.g. Software Engineer" %>
-                </div>
-                <div class="grid">
-                    <div class="form-group">
-                        <%= f.label :start_date %>
-                        <%= f.date_field :start_date, required: true %>
-                    </div>
-                    <div class="form-group">
-                        <%= f.label :end_date %>
-                        <%= f.date_field :end_date %>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label style="display: flex; align-items: center; gap: 8px;">
-                        <%= f.check_box :current_job %> I currently work here
-                    </label>
-                </div>
-                <div class="form-group">
-                    <%= f.label :location %>
-                    <%= f.text_field :location, placeholder: "e.g. New York, NY" %>
-                </div>
-                <%= f.submit "Add Experience", class: "btn btn-secondary" %>
-            <% end %>
-        </div>
-
-        <!-- Education History Section -->
-        <div class="card">
-            <div class="section-title">
-                Education
-            </div>
-
-            <div id="education-history-list">
-                <% if @education_histories.any? %>
-                    <% @education_histories.each do |edu| %>
-                        <div class="history-item">
-                            <div class="item-title"><%= edu.degree %> in <%= edu.field_of_study %></div>
-                            <div class="item-subtitle"><%= edu.institution_name %></div>
-                            <div class="item-subtitle">Graduated: <%= edu.graduation_year %></div>
-                        </div>
-                    <% end %>
-                <% else %>
-                    <p style="color: #9ca3af; font-style: italic; margin-bottom: 20px;">No education history added yet.</p>
-                <% end %>
-            </div>
-
-            <hr style="margin: 20px 0; border: 0; border-top: 1px solid #f3f4f6;">
-
-            <h3 style="margin-bottom: 16px; font-size: 16px;">Add New Education</h3>
-            <%= form_with(model: EducationHistory.new, url: verifications_add_education_history_path, local: true) do |f| %>
-                <div class="form-group">
-                    <%= f.label :institution_name, "School/University" %>
-                    <%= f.text_field :institution_name, required: true, placeholder: "e.g. Stanford University" %>
-                </div>
-                <div class="grid">
-                    <div class="form-group">
-                        <%= f.label :degree %>
-                        <%= f.text_field :degree, required: true, placeholder: "e.g. Bachelor of Science" %>
-                    </div>
-                    <div class="form-group">
-                        <%= f.label :field_of_study %>
-                        <%= f.text_field :field_of_study, required: true, placeholder: "e.g. Computer Science" %>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <%= f.label :graduation_year %>
-                    <%= f.number_field :graduation_year, required: true, min: 1900, max: Date.today.year + 10 %>
-                </div>
-                <%= f.submit "Add Education", class: "btn btn-secondary" %>
-            <% end %>
-        </div>
-
-        <%= button_to "Submit Profile for Verification", verifications_submit_verification_path, method: :post, class: "btn btn-primary" %>
-
-        <div class="footer">
-            <p>&copy; 2025 truebg. All rights reserved.</p>
-        </div>
+<div class="max-w-4xl mx-auto">
+  <!-- Header -->
+  <div class="mb-10 text-center">
+    <div class="inline-flex items-center justify-center p-3 bg-indigo-50 rounded-2xl mb-4 shadow-sm border border-indigo-100">
+      <svg class="w-8 h-8 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
     </div>
-</body>
-</html>
+    <h1 class="text-4xl font-extrabold text-gray-900 tracking-tight mb-3">Verification Dashboard</h1>
+    <p class="text-lg text-gray-500 max-w-2xl mx-auto">Please provide your comprehensive work and education history to finalize your background check.</p>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+    
+    <!-- Sidebar / Tracker -->
+    <div class="lg:col-span-4">
+      <div class="bg-white rounded-3xl shadow-xl shadow-indigo-100/50 border border-gray-100 p-6 sticky top-28">
+        <div class="flex items-center justify-between mb-6">
+          <h3 class="text-sm font-bold text-gray-400 uppercase tracking-widest">Live Status</h3>
+          <span class="flex h-2.5 w-2.5 rounded-full bg-indigo-500 pulse"></span>
+        </div>
+        
+        <div class="space-y-6 relative before:absolute before:inset-0 before:ml-2.5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-gray-200 before:to-transparent">
+          <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+            <div class="flex items-center justify-center w-6 h-6 rounded-full border-4 border-white bg-green-500 shadow shrink-0 z-10">
+              <svg class="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
+            </div>
+            <div class="w-[calc(100%-3rem)] md:w-[calc(50%-2.5rem)] px-4">
+              <div class="flex flex-col">
+                <span class="text-sm font-bold text-gray-900">Identity</span>
+                <span class="text-xs text-green-600 font-medium tracking-wide">VERIFIED</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+            <div class="flex items-center justify-center w-6 h-6 rounded-full border-4 border-indigo-100 bg-indigo-500 shadow shrink-0 z-10 pulse">
+              <div class="w-2 h-2 rounded-full bg-white"></div>
+            </div>
+            <div class="w-[calc(100%-3rem)] md:w-[calc(50%-2.5rem)] px-4">
+              <div class="flex flex-col">
+                <span class="text-sm font-bold text-indigo-700">Data Collection</span>
+                <span class="text-xs text-indigo-500 font-medium">IN PROGRESS</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
+            <div class="flex items-center justify-center w-6 h-6 rounded-full border-4 border-white bg-gray-200 shadow shrink-0 z-10">
+            </div>
+            <div class="w-[calc(100%-3rem)] md:w-[calc(50%-2.5rem)] px-4">
+              <div class="flex flex-col">
+                <span class="text-sm font-medium text-gray-400">Criminal Scrape</span>
+                <span class="text-xs text-gray-400">PENDING</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="mt-8 pt-6 border-t border-gray-100">
+          <div class="bg-blue-50/50 rounded-2xl p-4 border border-blue-100/50">
+            <div class="flex gap-3">
+              <svg class="w-5 h-5 text-blue-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+              <p class="text-xs text-blue-800 leading-relaxed">Your data is secured with AES-256 encryption. Only authorized enterprise viewers can access this report.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Main Content Area -->
+    <div class="lg:col-span-8 space-y-8">
+      
+      <!-- Work Section -->
+      <section class="bg-white rounded-3xl shadow-xl shadow-gray-200/40 border border-gray-100 overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-gray-200/50">
+        <div class="px-8 py-6 border-b border-gray-50 flex items-center justify-between bg-gradient-to-r from-white to-gray-50/50">
+          <div class="flex items-center gap-4">
+            <div class="p-2.5 bg-indigo-50 rounded-xl text-indigo-600">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold text-gray-900">Work Experience</h3>
+              <p class="text-sm text-gray-500">Employment timeline</p>
+            </div>
+          </div>
+          <button onclick="document.getElementById('work-modal').classList.remove('hidden')" class="px-4 py-2 bg-indigo-50 text-indigo-600 hover:bg-indigo-100 font-semibold rounded-xl text-sm flex items-center gap-2 transition-colors">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+            Add
+          </button>
+        </div>
+        
+        <div class="p-8">
+          <% if @work_histories.any? %>
+            <div class="space-y-4">
+              <% @work_histories.each do |work| %>
+                <div class="group relative flex items-center justify-between p-5 rounded-2xl border border-gray-100 hover:border-indigo-100 hover:bg-indigo-50/30 transition-all cursor-default">
+                  <div class="flex items-start gap-4">
+                    <div class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-400 font-bold group-hover:bg-indigo-100 group-hover:text-indigo-600 transition-colors">
+                      <%= work.company_name[0].upcase %>
+                    </div>
+                    <div>
+                      <p class="font-bold text-gray-900"><%= work.job_title %></p>
+                      <p class="text-sm font-medium text-gray-600"><%= work.company_name %></p>
+                      <div class="flex items-center gap-2 mt-1">
+                        <span class="text-xs text-gray-400 flex items-center gap-1">
+                          <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                          <%= work.start_date.strftime("%b %Y") %> - <%= work.current_job ? 'Present' : work.end_date&.strftime("%b %Y") %>
+                        </span>
+                        <span class="text-gray-300">•</span>
+                        <span class="text-xs text-gray-400"><%= work.location %></span>
+                      </div>
+                    </div>
+                  </div>
+                  <span class="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-gray-100 text-gray-600">Pending</span>
+                </div>
+              <% end %>
+            </div>
+          <% else %>
+            <div class="text-center py-10">
+              <div class="w-20 h-20 mx-auto bg-gray-50 rounded-full flex items-center justify-center mb-4 border-2 border-dashed border-gray-200">
+                <svg class="w-8 h-8 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+              </div>
+              <p class="text-sm font-medium text-gray-900 mb-1">No work history</p>
+              <p class="text-xs text-gray-500 mb-4">Add your professional experience to build your profile.</p>
+              <button onclick="document.getElementById('work-modal').classList.remove('hidden')" class="text-indigo-600 font-semibold text-sm hover:text-indigo-700">Add first entry &rarr;</button>
+            </div>
+          <% end %>
+        </div>
+      </section>
+
+      <!-- Education Section -->
+      <section class="bg-white rounded-3xl shadow-xl shadow-gray-200/40 border border-gray-100 overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-gray-200/50">
+        <div class="px-8 py-6 border-b border-gray-50 flex items-center justify-between bg-gradient-to-r from-white to-gray-50/50">
+          <div class="flex items-center gap-4">
+            <div class="p-2.5 bg-purple-50 rounded-xl text-purple-600">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 14l9-5-9-5-9 5 9 5z"></path><path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"></path></svg>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold text-gray-900">Education</h3>
+              <p class="text-sm text-gray-500">Academic qualifications</p>
+            </div>
+          </div>
+          <button onclick="document.getElementById('edu-modal').classList.remove('hidden')" class="px-4 py-2 bg-purple-50 text-purple-600 hover:bg-purple-100 font-semibold rounded-xl text-sm flex items-center gap-2 transition-colors">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+            Add
+          </button>
+        </div>
+
+        <div class="p-8">
+          <% if @education_histories.any? %>
+            <div class="space-y-4">
+              <% @education_histories.each do |edu| %>
+                <div class="group relative flex items-center justify-between p-5 rounded-2xl border border-gray-100 hover:border-purple-100 hover:bg-purple-50/30 transition-all cursor-default">
+                  <div class="flex items-start gap-4">
+                    <div class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-400 font-bold group-hover:bg-purple-100 group-hover:text-purple-600 transition-colors">
+                      <%= edu.institution_name[0].upcase %>
+                    </div>
+                    <div>
+                      <p class="font-bold text-gray-900"><%= edu.degree %> in <%= edu.field_of_study %></p>
+                      <p class="text-sm font-medium text-gray-600"><%= edu.institution_name %></p>
+                      <div class="flex items-center gap-2 mt-1">
+                        <span class="text-xs text-gray-400">Class of <%= edu.graduation_year %></span>
+                      </div>
+                    </div>
+                  </div>
+                  <span class="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-gray-100 text-gray-600">Pending</span>
+                </div>
+              <% end %>
+            </div>
+          <% else %>
+            <div class="text-center py-10">
+              <div class="w-20 h-20 mx-auto bg-gray-50 rounded-full flex items-center justify-center mb-4 border-2 border-dashed border-gray-200">
+                <svg class="w-8 h-8 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 14l9-5-9-5-9 5 9 5z"></path></svg>
+              </div>
+              <p class="text-sm font-medium text-gray-900 mb-1">No education added</p>
+              <p class="text-xs text-gray-500 mb-4">Add your degrees or relevant academic backgrounds.</p>
+              <button onclick="document.getElementById('edu-modal').classList.remove('hidden')" class="text-purple-600 font-semibold text-sm hover:text-purple-700">Add first degree &rarr;</button>
+            </div>
+          <% end %>
+        </div>
+      </section>
+
+      <!-- Final Review Submission -->
+      <div class="bg-gray-900 rounded-3xl p-8 shadow-2xl relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-indigo-900/50 to-purple-900/50 pointer-events-none"></div>
+        <div class="relative z-10 flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div>
+            <h3 class="text-2xl font-bold text-white mb-2">Ready to submit?</h3>
+            <p class="text-gray-300 text-sm max-w-md">By submitting, you consent to truebg initiating the automated background verification process using the details provided.</p>
+          </div>
+          <%= button_to verifications_submit_verification_path, method: :post, class: "shrink-0 group relative inline-flex items-center justify-center px-8 py-4 font-bold text-white bg-indigo-500 rounded-2xl overflow-hidden transition-all hover:scale-105 active:scale-95 shadow-[0_0_40px_-10px_rgba(99,102,241,1)]" do %>
+            <span class="absolute w-0 h-0 transition-all duration-300 ease-out bg-white rounded-full group-hover:w-60 group-hover:h-56 opacity-10"></span>
+            <span class="relative flex items-center gap-2">
+              Submit Final Profile
+              <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+            </span>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modern Backdrop Blurs for Modals -->
+<div id="work-modal" class="hidden fixed inset-0 bg-gray-900/40 backdrop-blur-sm z-50 flex items-center justify-center p-4 opacity-0 transition-opacity duration-300 data-[state=open]:opacity-100" style="animation: fadeIn 0.3s forwards;">
+  <div class="bg-white rounded-[2rem] p-8 max-w-lg w-full shadow-2xl border border-white/20 transform scale-95 transition-transform duration-300" style="animation: slideUp 0.3s forwards;">
+    <div class="flex items-center justify-between mb-6">
+      <h3 class="text-2xl font-bold text-gray-900">Add Work Experience</h3>
+      <button onclick="document.getElementById('work-modal').classList.add('hidden')" class="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-full transition-colors">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+      </button>
+    </div>
+    <%= form_with model: WorkHistory.new, url: verifications_add_work_history_path, class: "space-y-4" do |f| %>
+      <div class="space-y-1">
+        <%= f.label :company_name, class: "text-sm font-semibold text-gray-700" %>
+        <%= f.text_field :company_name, class: "w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all", placeholder: "e.g. Acme Corp", required: true %>
+      </div>
+      <div class="space-y-1">
+        <%= f.label :job_title, class: "text-sm font-semibold text-gray-700" %>
+        <%= f.text_field :job_title, class: "w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all", placeholder: "e.g. Senior Software Engineer", required: true %>
+      </div>
+      <div class="grid grid-cols-2 gap-4">
+        <div class="space-y-1">
+          <%= f.label :start_date, class: "text-sm font-semibold text-gray-700" %>
+          <%= f.date_field :start_date, class: "w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all", required: true %>
+        </div>
+        <div class="space-y-1">
+          <%= f.label :end_date, "End date (or leave blank if current)", class: "text-sm font-semibold text-gray-700 truncate" %>
+          <%= f.date_field :end_date, class: "w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all" %>
+        </div>
+      </div>
+      <div class="space-y-1">
+        <%= f.label :location, class: "text-sm font-semibold text-gray-700" %>
+        <%= f.text_field :location, class: "w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all", placeholder: "City, State", required: true %>
+      </div>
+      <div class="flex gap-4 pt-6 mt-2 border-t border-gray-100">
+        <button type="button" onclick="document.getElementById('work-modal').classList.add('hidden')" class="w-full py-3 px-4 text-gray-600 bg-gray-100 hover:bg-gray-200 font-semibold rounded-xl transition-colors">Cancel</button>
+        <%= f.submit "Save Work", class: "w-full py-3 px-4 text-white bg-indigo-600 hover:bg-indigo-700 font-semibold rounded-xl shadow-lg shadow-indigo-200 transition-all cursor-pointer" %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<div id="edu-modal" class="hidden fixed inset-0 bg-gray-900/40 backdrop-blur-sm z-50 flex items-center justify-center p-4 opacity-0 transition-opacity duration-300 data-[state=open]:opacity-100" style="animation: fadeIn 0.3s forwards;">
+  <div class="bg-white rounded-[2rem] p-8 max-w-lg w-full shadow-2xl border border-white/20 transform scale-95 transition-transform duration-300" style="animation: slideUp 0.3s forwards;">
+    <div class="flex items-center justify-between mb-6">
+      <h3 class="text-2xl font-bold text-gray-900">Add Education</h3>
+      <button onclick="document.getElementById('edu-modal').classList.add('hidden')" class="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-full transition-colors">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+      </button>
+    </div>
+    <%= form_with model: EducationHistory.new, url: verifications_add_education_history_path, class: "space-y-4" do |f| %>
+      <div class="space-y-1">
+        <%= f.label :institution_name, "University / College", class: "text-sm font-semibold text-gray-700" %>
+        <%= f.text_field :institution_name, class: "w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all", placeholder: "e.g. Stanford University", required: true %>
+      </div>
+      <div class="grid grid-cols-2 gap-4">
+        <div class="space-y-1">
+          <%= f.label :degree, class: "text-sm font-semibold text-gray-700" %>
+          <%= f.text_field :degree, class: "w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all", placeholder: "B.Tech, MBA...", required: true %>
+        </div>
+        <div class="space-y-1">
+          <%= f.label :graduation_year, "Graduation Year", class: "text-sm font-semibold text-gray-700" %>
+          <%= f.text_field :graduation_year, class: "w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all", placeholder: "2022", required: true %>
+        </div>
+      </div>
+      <div class="space-y-1">
+        <%= f.label :field_of_study, "Field of Study", class: "text-sm font-semibold text-gray-700" %>
+        <%= f.text_field :field_of_study, class: "w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all", placeholder: "e.g. Computer Science", required: true %>
+      </div>
+      <div class="flex gap-4 pt-6 mt-2 border-t border-gray-100">
+        <button type="button" onclick="document.getElementById('edu-modal').classList.add('hidden')" class="w-full py-3 px-4 text-gray-600 bg-gray-100 hover:bg-gray-200 font-semibold rounded-xl transition-colors">Cancel</button>
+        <%= f.submit "Save Education", class: "w-full py-3 px-4 text-white bg-indigo-600 hover:bg-indigo-700 font-semibold rounded-xl shadow-lg shadow-indigo-200 transition-all cursor-pointer" %>
+      </div>
+    <% end %>
+  </div>
+</div>

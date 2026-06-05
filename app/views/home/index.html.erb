@@ -18,7 +18,12 @@
           <%= link_to "Features", "#features", class: "text-gray-600 hover:text-cyan-500" %>
           <%= link_to "How It Works", "#how-it-works", class: "text-gray-600 hover:text-cyan-500" %>
           <div class="h-6 w-px bg-gray-200"></div>
-          <%= link_to "Candidate Login", new_candidate_session_path, class: "text-gray-600 hover:text-cyan-500" %>
+          <% if candidate_signed_in? %>
+            <%= link_to "Candidate Portal", verifications_your_profile_path, class: "text-gray-600 hover:text-cyan-500 font-medium" %>
+            <%= button_to "Sign Out", destroy_candidate_session_path, method: :delete, class: "text-gray-600 hover:text-cyan-500 bg-transparent border-none p-0 cursor-pointer font-medium" %>
+          <% else %>
+            <%= link_to "Candidate Login", new_candidate_session_path, class: "text-gray-600 hover:text-cyan-500 font-medium" %>
+          <% end %>
           <%= link_to "Admin Dashboard", admins_dashboard_path, class: "bg-cyan-500 text-white px-4 py-2 rounded-md hover:bg-cyan-600 transition" %>
         </div>
       </div>
