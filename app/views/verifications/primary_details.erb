@@ -1,79 +1,96 @@
-<div class="max-w-2xl mx-auto">
+<div class="max-w-2xl mx-auto py-12 px-4 animate-fade-in">
   <!-- Header -->
-  <div class="mb-10 text-center">
-    <div class="inline-flex items-center justify-center p-3 bg-indigo-50 rounded-2xl mb-4 shadow-sm border border-indigo-100">
-      <svg class="w-8 h-8 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+  <div class="mb-12 text-center">
+    <div class="inline-flex items-center justify-center p-4 bg-white rounded-3xl shadow-xl shadow-indigo-100 border border-indigo-50 mb-6 group transition-transform hover:scale-110 duration-500">
+      <svg class="w-10 h-10 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
     </div>
-    <h1 class="text-4xl font-extrabold text-gray-900 tracking-tight mb-3">Primary Details</h1>
-    <p class="text-lg text-gray-500 max-w-lg mx-auto">Please provide your personal information to establish your identity in our verification system.</p>
+    <h1 class="text-4xl font-black text-slate-900 tracking-tight mb-4">Primary Details</h1>
+    <p class="text-lg text-slate-500 max-w-lg mx-auto">Establish your identity in our secure verification system with your personal information.</p>
   </div>
 
-  <div class="bg-white rounded-[2rem] shadow-xl shadow-gray-200/50 border border-gray-100 overflow-hidden">
+  <div class="bg-white/80 backdrop-blur-xl rounded-[2.5rem] shadow-2xl shadow-indigo-100/50 border border-white overflow-hidden overflow-visible">
     <div class="p-10">
-      <div class="flex items-center justify-center mb-8">
-        <div class="flex items-center gap-4">
-          <div class="w-8 h-8 rounded-full bg-indigo-500 text-white flex items-center justify-center text-sm font-bold shadow-sm">1</div>
-          <div class="h-0.5 w-12 bg-indigo-100"></div>
-          <div class="w-8 h-8 rounded-full bg-gray-100 text-gray-400 flex items-center justify-center text-sm font-bold">2</div>
+      <!-- Progressive Step Indicator -->
+      <div class="flex items-center justify-center mb-12">
+        <div class="flex items-center gap-6">
+          <div class="flex flex-col items-center gap-2">
+            <div class="w-10 h-10 rounded-full bg-indigo-600 text-white flex items-center justify-center text-sm font-black shadow-lg shadow-indigo-200 ring-4 ring-indigo-50 transition-transform hover:scale-110">1</div>
+            <span class="text-[10px] font-bold text-indigo-600 uppercase tracking-widest">Identity</span>
+          </div>
+          <div class="h-0.5 w-16 bg-slate-100 rounded-full"></div>
+          <div class="flex flex-col items-center gap-2">
+            <div class="w-10 h-10 rounded-full bg-slate-50 text-slate-300 flex items-center justify-center text-sm font-black border-2 border-slate-100">2</div>
+            <span class="text-[10px] font-bold text-slate-300 uppercase tracking-widest">Verification</span>
+          </div>
         </div>
       </div>
 
-      <%= form_with model: @candidate, url: verifications_update_primary_details_path, method: :patch, class: "space-y-6" do |f| %>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div class="space-y-2">
-            <%= f.label :first_name, class: "text-sm font-semibold text-gray-700" %>
-            <%= f.text_field :first_name, class: "w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all", placeholder: "e.g. John", required: true %>
+      <%= form_with model: @candidate, url: verifications_update_primary_details_path, method: :patch, class: "space-y-8" do |f| %>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div class="space-y-2 group">
+            <%= f.label :first_name, class: "block text-xs font-bold text-slate-400 uppercase tracking-widest pl-1 group-focus-within:text-indigo-500 transition-colors" %>
+            <%= f.text_field :first_name, class: "w-full px-5 py-4 bg-slate-50/50 border border-slate-100 rounded-2xl focus:bg-white focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all text-slate-700 font-medium", placeholder: "e.g. John", required: true %>
           </div>
-          <div class="space-y-2">
-            <%= f.label :last_name, class: "text-sm font-semibold text-gray-700" %>
-            <%= f.text_field :last_name, class: "w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all", placeholder: "e.g. Doe", required: true %>
-          </div>
-        </div>
-
-        <div class="space-y-2">
-          <%= f.label :dob, "Date of Birth", class: "text-sm font-semibold text-gray-700" %>
-          <%= f.date_field :dob, class: "w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all", required: true %>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div class="space-y-2">
-            <%= f.label :pan_number, "PAN Number", class: "text-sm font-semibold text-gray-700" %>
-            <%= f.text_field :pan_number, class: "w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all uppercase", placeholder: "ABCDE1234F", required: true, maxlength: 10 %>
-          </div>
-          <div class="space-y-2">
-            <%= f.label :aadhaar_number, "Aadhaar Number", class: "text-sm font-semibold text-gray-700" %>
-            <%= f.text_field :aadhaar_number, class: "w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all", placeholder: "0000 0000 0000", required: true, maxlength: 12 %>
+          <div class="space-y-2 group">
+            <%= f.label :last_name, class: "block text-xs font-bold text-slate-400 uppercase tracking-widest pl-1 group-focus-within:text-indigo-500 transition-colors" %>
+            <%= f.text_field :last_name, class: "w-full px-5 py-4 bg-slate-50/50 border border-slate-100 rounded-2xl focus:bg-white focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all text-slate-700 font-medium", placeholder: "e.g. Doe", required: true %>
           </div>
         </div>
 
-        <div class="space-y-2">
-          <%= f.label :address, class: "text-sm font-semibold text-gray-700" %>
-          <%= f.text_area :address, class: "w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all", rows: 3, placeholder: "123, Street Name...", required: true %>
+        <div class="space-y-2 group">
+          <%= f.label :dob, "Date of Birth", class: "block text-xs font-bold text-slate-400 uppercase tracking-widest pl-1 group-focus-within:text-indigo-500 transition-colors" %>
+          <%= f.date_field :dob, class: "w-full px-5 py-4 bg-slate-50/50 border border-slate-100 rounded-2xl focus:bg-white focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all text-slate-700 font-medium", required: true %>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div class="space-y-2 group">
+            <%= f.label :pan_number, "PAN Number", class: "block text-xs font-bold text-slate-400 uppercase tracking-widest pl-1 group-focus-within:text-indigo-500 transition-colors" %>
+            <%= f.text_field :pan_number, class: "w-full px-5 py-4 bg-slate-50/50 border border-slate-100 rounded-2xl focus:bg-white focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all text-slate-700 font-medium uppercase tracking-widest", placeholder: "ABCDE1234F", required: true, maxlength: 10 %>
+          </div>
+          <div class="space-y-2 group">
+            <%= f.label :aadhaar_number, "Aadhaar Number", class: "block text-xs font-bold text-slate-400 uppercase tracking-widest pl-1 group-focus-within:text-indigo-500 transition-colors" %>
+            <%= f.text_field :aadhaar_number, class: "w-full px-5 py-4 bg-slate-50/50 border border-slate-100 rounded-2xl focus:bg-white focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all text-slate-700 font-medium", placeholder: "0000 0000 0000", required: true, maxlength: 12 %>
+          </div>
+        </div>
+
+        <div class="space-y-2 group">
+          <%= f.label :address, class: "block text-xs font-bold text-slate-400 uppercase tracking-widest pl-1 group-focus-within:text-indigo-500 transition-colors" %>
+          <%= f.text_area :address, class: "w-full px-5 py-4 bg-slate-50/50 border border-slate-100 rounded-2xl focus:bg-white focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all text-slate-700 font-medium", rows: 3, placeholder: "123, Street Name...", required: true %>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div class="space-y-2">
-            <%= f.label :city, class: "text-sm font-semibold text-gray-700" %>
-            <%= f.text_field :city, class: "w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all", placeholder: "City", required: true %>
+          <div class="space-y-2 group">
+            <%= f.label :city, class: "block text-xs font-bold text-slate-400 uppercase tracking-widest pl-1 group-focus-within:text-indigo-500 transition-colors" %>
+            <%= f.text_field :city, class: "w-full px-5 py-4 bg-slate-50/50 border border-slate-100 rounded-2xl focus:bg-white focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all text-slate-700 font-medium", placeholder: "City", required: true %>
           </div>
-          <div class="space-y-2">
-            <%= f.label :state, class: "text-sm font-semibold text-gray-700" %>
-            <%= f.text_field :state, class: "w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all", placeholder: "State", required: true %>
+          <div class="space-y-2 group">
+            <%= f.label :state, class: "block text-xs font-bold text-slate-400 uppercase tracking-widest pl-1 group-focus-within:text-indigo-500 transition-colors" %>
+            <%= f.text_field :state, class: "w-full px-5 py-4 bg-slate-50/50 border border-slate-100 rounded-2xl focus:bg-white focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all text-slate-700 font-medium", placeholder: "State", required: true %>
           </div>
-          <div class="space-y-2">
-            <%= f.label :pincode, class: "text-sm font-semibold text-gray-700" %>
-            <%= f.text_field :pincode, class: "w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all", placeholder: "110001", required: true, maxlength: 6 %>
+          <div class="space-y-2 group">
+            <%= f.label :pincode, class: "block text-xs font-bold text-slate-400 uppercase tracking-widest pl-1 group-focus-within:text-indigo-500 transition-colors" %>
+            <%= f.text_field :pincode, class: "w-full px-5 py-4 bg-slate-50/50 border border-slate-100 rounded-2xl focus:bg-white focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all text-slate-700 font-medium", placeholder: "110001", required: true, maxlength: 6 %>
           </div>
         </div>
 
         <div class="pt-6">
-          <%= f.submit "Save & Continue", class: "w-full py-4 px-6 text-white bg-indigo-600 hover:bg-indigo-700 font-bold rounded-2xl shadow-lg shadow-indigo-100 transition-all transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer" %>
+          <%= f.submit "Save & Continue", class: "w-full py-4 px-6 text-white bg-indigo-600 hover:bg-indigo-700 font-bold rounded-2xl shadow-lg shadow-indigo-100 transition-all transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer flex items-center justify-center gap-2 group" %>
         </div>
       <% end %>
     </div>
   </div>
   
-  <p class="text-center text-sm text-gray-400 mt-8">
-    All information is encrypted and processed according to our <a href="#" class="text-indigo-600 font-medium">Privacy Policy</a>.
+  <p class="text-center text-xs text-slate-400 mt-10">
+    All information is encrypted and processed according to our <a href="#" class="text-indigo-600 font-bold hover:underline">Privacy Policy</a>.
   </p>
 </div>
+
+<style>
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in {
+  animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+</style>
