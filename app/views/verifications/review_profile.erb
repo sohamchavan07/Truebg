@@ -100,7 +100,15 @@
 
       <!-- Final Action Card -->
       <div class="bg-slate-900 rounded-[2.5rem] p-8 shadow-2xl relative overflow-hidden group">
-        <% if @verification_case&.status == 'completed' %>
+        <% if @verification_case.nil? %>
+          <div class="relative z-10 text-center py-4">
+             <div class="inline-flex items-center gap-3 px-6 py-3 bg-rose-500/10 border border-rose-500/20 rounded-2xl mb-4">
+               <svg class="w-5 h-5 text-rose-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+               <span class="text-sm font-black text-rose-500 uppercase tracking-widest">No Active Case Found</span>
+             </div>
+             <p class="text-slate-400 text-xs font-medium">We couldn't find an active verification case for your account. Please contact your organization to receive an invitation.</p>
+          </div>
+        <% elsif @verification_case.status == 'completed' %>
           <div class="relative z-10 text-center py-4">
              <div class="inline-flex items-center gap-3 px-6 py-3 bg-green-500/10 border border-green-500/20 rounded-2xl mb-4">
                <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>

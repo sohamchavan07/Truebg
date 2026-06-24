@@ -21,7 +21,7 @@
         </div>
       </div>
 
-      <%= form_with model: @candidate, url: verifications_update_primary_details_path, method: :patch, class: "space-y-8" do |f| %>
+      <%= form_with model: @candidate, url: verifications_update_primary_details_path, method: :patch, class: "space-y-8", data: { turbo: false } do |f| %>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div class="space-y-2 group">
             <%= f.label :first_name, class: "block text-xs font-bold text-slate-400 uppercase tracking-widest pl-1 group-focus-within:text-indigo-500 transition-colors" %>
