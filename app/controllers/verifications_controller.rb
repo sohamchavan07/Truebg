@@ -1,6 +1,6 @@
 class VerificationsController < ApplicationController
   before_action :authenticate_candidate!, except: [ :start, :phone_verification, :send_otp, :otp_verification, :verify_otp ]
-  skip_before_action :verify_authenticity_token, only: [ :send_otp, :verify_otp ]
+  skip_before_action :verify_authenticity_token, only: [ :send_otp, :verify_otp, :submit_verification ]
 
   layout "candidate_flow"
   before_action :set_verification_case
@@ -123,8 +123,11 @@ class VerificationsController < ApplicationController
       session.delete(:otp)
       session[:phone_verified] = true
 
-      # For now, if no candidate is logged in, we might need to handle registration or login
-      # In a real flow, the invitation token would link to a candidate
+      # Save the verified phone number to the candidate record
+      if current_candidate && session[:phone].present?
+        current_candidate.update(phone: session[:phone])
+      end
+
       redirect_to verifications_connect_digilocker_path, notice: "Phone number verified successfully!"
     else
       redirect_to verifications_otp_verification_path, alert: "Invalid OTP. Please try again."

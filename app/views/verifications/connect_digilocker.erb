@@ -54,17 +54,68 @@
         </div>
       </div>
 
-      <div class="space-y-6">
-        <%= link_to verifications_primary_details_path, class: "w-full py-5 px-6 text-white bg-indigo-600 hover:bg-indigo-700 font-bold rounded-2xl shadow-lg shadow-indigo-100 transition-all transform hover:-translate-y-1 active:translate-y-0 flex items-center justify-center gap-3 group text-lg" do %>
-          Connect DigiLocker
-          <svg class="w-6 h-6 group-hover:translate-x-1.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-        <% end %>
+      <div class="space-y-6" id="digilocker-action-area">
+        <button onclick="startDigilockerSimulation()" id="connect-btn" class="w-full py-5 px-6 text-white bg-indigo-600 hover:bg-indigo-700 font-bold rounded-2xl shadow-lg shadow-indigo-100 transition-all transform hover:-translate-y-1 active:translate-y-0 flex items-center justify-center gap-3 group text-lg relative overflow-hidden">
+          <span id="btn-text" class="flex items-center gap-3">
+            Connect DigiLocker
+            <svg class="w-6 h-6 group-hover:translate-x-1.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+          </span>
+          <div id="btn-loader" class="hidden absolute inset-0 bg-indigo-600 flex items-center justify-center">
+            <svg class="animate-spin h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+          </div>
+        </button>
+
+        <div id="simulation-status" class="hidden space-y-4 animate-fade-in">
+           <div class="h-2 bg-slate-100 rounded-full overflow-hidden">
+             <div id="sim-progress" class="h-full bg-indigo-600 transition-all duration-1000" style="width: 0%"></div>
+           </div>
+           <p id="status-text" class="text-center text-[10px] font-black text-indigo-600 uppercase tracking-[0.3em] animate-pulse">Requesting Access...</p>
+        </div>
+
         <div class="flex items-center justify-center gap-2">
           <div class="h-px bg-slate-100 flex-1"></div>
           <p class="text-[10px] text-slate-300 uppercase tracking-widest font-black px-2">Gov-Auth Secure</p>
           <div class="h-px bg-slate-100 flex-1"></div>
         </div>
       </div>
+
+<script>
+function startDigilockerSimulation() {
+  const btn = document.getElementById('connect-btn');
+  const loader = document.getElementById('btn-loader');
+  const text = document.getElementById('btn-text');
+  const statusArea = document.getElementById('simulation-status');
+  const progress = document.getElementById('sim-progress');
+  const statusText = document.getElementById('status-text');
+
+  btn.disabled = true;
+  text.classList.add('opacity-0');
+  loader.classList.remove('hidden');
+
+  setTimeout(() => {
+    statusArea.classList.remove('hidden');
+    
+    const steps = [
+      { p: 30, t: "Authenticating Aadhaar..." },
+      { p: 60, t: "Fetching Primary Documents..." },
+      { p: 90, t: "Extracting PAN Details..." },
+      { p: 100, t: "Identity Verified!" }
+    ];
+
+    steps.forEach((step, index) => {
+      setTimeout(() => {
+        progress.style.width = step.p + '%';
+        statusText.innerText = step.t;
+        if(index === steps.length - 1) {
+          setTimeout(() => {
+            window.location.href = '<%= verifications_primary_details_path %>';
+          }, 800);
+        }
+      }, index * 1200);
+    });
+  }, 1000);
+}
+</script>
     </div>
   </div>
 </div>
