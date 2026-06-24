@@ -7,6 +7,7 @@
     <%= csp_meta_tag %>
 
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "candidate_flow", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
@@ -26,14 +27,12 @@
               true<span class="text-indigo-600 transition-colors">bg</span>
             </div>
             <div class="hidden md:flex items-center gap-1 bg-slate-100/50 p-1 rounded-2xl border border-slate-200/50">
-              <% if current_candidate.first_name.present? %>
-                <%= link_to verifications_your_profile_path, class: "px-5 py-2 rounded-xl text-sm font-bold transition-all #{request.path == verifications_your_profile_path ? 'bg-white text-indigo-600 shadow-sm border border-slate-100' : 'text-slate-400 hover:text-slate-600 hover:bg-white/50'}" do %>
-                  Dashboard
-                <% end %>
-                <div class="w-px h-4 bg-slate-200"></div>
+              <%= link_to candidate_dashboard_path, class: "px-5 py-2 rounded-xl text-sm font-bold transition-all #{request.path == candidate_dashboard_path ? 'bg-white text-indigo-600 shadow-sm border border-slate-100' : 'text-slate-400 hover:text-slate-600 hover:bg-white/50'}" do %>
+                Home
               <% end %>
-              <%= link_to verifications_primary_details_path, class: "px-5 py-2 rounded-xl text-sm font-bold transition-all #{request.path == verifications_primary_details_path ? 'bg-white text-indigo-600 shadow-sm border border-slate-100' : 'text-slate-400 hover:text-slate-600 hover:bg-white/50'}" do %>
-                Identity Status
+              <div class="w-px h-4 bg-slate-200"></div>
+              <%= link_to verifications_review_profile_path, class: "px-5 py-2 rounded-xl text-sm font-bold transition-all #{request.path == verifications_review_profile_path ? 'bg-white text-indigo-600 shadow-sm border border-slate-100' : 'text-slate-400 hover:text-slate-600 hover:bg-white/50'}" do %>
+                Verification Status
               <% end %>
             </div>
           </div>

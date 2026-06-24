@@ -4,11 +4,7 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(resource)
     if resource.is_a?(Candidate)
-      if resource.first_name.blank?
-        verifications_primary_details_path
-      else
-        verifications_your_profile_path
-      end
+      candidate_dashboard_path
     else
       super
     end

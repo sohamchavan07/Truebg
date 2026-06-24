@@ -14,53 +14,64 @@
     </div>
 
     <div class="bg-white/80 backdrop-blur-xl rounded-[2.5rem] p-10 shadow-2xl shadow-indigo-100/50 border border-white relative">
-      <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "space-y-6" }) do |f| %>
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "space-y-6", id: "login-form" }) do |f| %>
         <%= render "candidates/shared/error_messages", resource: resource %>
 
         <div class="space-y-6">
-          <div class="group">
-            <%= f.label :email, class: "block text-xs font-bold text-slate-400 uppercase tracking-widest pl-1 mb-2 group-focus-within:text-indigo-500 transition-colors" %>
-            <div class="relative">
-              <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-300">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"></path></svg>
+          <!-- Step 1: Email -->
+          <div id="email-step" class="animate-fade-in">
+            <div class="group">
+              <%= f.label :email, class: "block text-xs font-bold text-slate-400 uppercase tracking-widest pl-1 mb-2 group-focus-within:text-indigo-500 transition-colors" %>
+              <div class="relative">
+                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-300">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"></path></svg>
+                </div>
+                <%= f.email_field :email, autofocus: true, autocomplete: "email", required: true, id: "email-field",
+                    class: "block w-full pl-12 pr-4 py-4 bg-slate-50/50 border border-slate-100 rounded-2xl focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 focus:bg-white transition-all text-slate-700", placeholder: "alex@example.com" %>
               </div>
-              <%= f.email_field :email, autofocus: true, autocomplete: "email", required: true,
-                  class: "block w-full pl-12 pr-4 py-4 bg-slate-50/50 border border-slate-100 rounded-2xl focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 focus:bg-white transition-all text-slate-700", placeholder: "alex@example.com" %>
             </div>
-          </div>
-
-          <div class="group">
-            <div class="flex items-center justify-between pl-1 mb-2">
-              <%= f.label :password, class: "block text-xs font-bold text-slate-400 uppercase tracking-widest group-focus-within:text-indigo-500 transition-colors" %>
-              <%= link_to "Forgot?", new_candidate_password_path, class: "text-xs font-bold text-indigo-500 hover:text-indigo-600" %>
-            </div>
-            <div class="relative">
-              <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-300">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
-              </div>
-              <%= f.password_field :password, autocomplete: "current-password", required: true,
-                  class: "block w-full pl-12 pr-12 py-4 bg-slate-50/50 border border-slate-100 rounded-2xl focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 focus:bg-white transition-all text-slate-700", id: "password-field", placeholder: "••••••••" %>
-              <button type="button" 
-                      class="absolute inset-y-0 right-0 pr-4 flex items-center text-slate-300 hover:text-indigo-500 transition-colors"
-                      onclick="togglePassword('password-field', 'password-toggle-svg')">
-                <svg class="h-5 w-5" id="password-toggle-svg" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                </svg>
+            
+            <div class="pt-6">
+              <button type="button" onclick="showPasswordStep()" id="next-button"
+                  class="w-full py-4 px-6 text-white bg-indigo-600 hover:bg-indigo-700 font-bold rounded-2xl shadow-lg shadow-indigo-100 transition-all transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer flex items-center justify-center gap-2 group">
+                Next
+                <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
               </button>
             </div>
           </div>
 
-          <% if devise_mapping.rememberable? %>
-            <div class="flex items-center pl-1">
-              <%= f.check_box :remember_me, class: "h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-slate-200 rounded-lg transition-all" %>
-              <%= f.label :remember_me, class: "ml-2 block text-sm text-slate-500 font-medium" %>
+          <!-- Step 2: Password (Hidden initially) -->
+          <div id="password-step" class="hidden animate-fade-in space-y-6">
+            <div class="group">
+              <div class="flex items-center justify-between pl-1 mb-2">
+                <div class="flex items-center gap-2">
+                  <button type="button" onclick="showEmailStep()" class="text-indigo-500">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                  </button>
+                  <%= f.label :password, class: "block text-xs font-bold text-slate-400 uppercase tracking-widest group-focus-within:text-indigo-500 transition-colors" %>
+                </div>
+                <%= link_to "Forgot?", new_candidate_password_path, class: "text-xs font-bold text-indigo-500 hover:text-indigo-600" %>
+              </div>
+              <div class="relative">
+                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-300">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                </div>
+                <%= f.password_field :password, autocomplete: "current-password", required: true,
+                    class: "block w-full pl-12 pr-12 py-4 bg-slate-50/50 border border-slate-100 rounded-2xl focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 focus:bg-white transition-all text-slate-700", id: "password-field", placeholder: "••••••••" %>
+              </div>
             </div>
-          <% end %>
 
-          <div class="pt-4">
-            <%= f.submit "Sign In", 
-                class: "w-full py-4 px-6 text-white bg-indigo-600 hover:bg-indigo-700 font-bold rounded-2xl shadow-lg shadow-indigo-100 transition-all transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer flex items-center justify-center gap-2 group" %>
+            <% if devise_mapping.rememberable? %>
+              <div class="flex items-center pl-1">
+                <%= f.check_box :remember_me, class: "h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-slate-200 rounded-lg transition-all" %>
+                <%= f.label :remember_me, class: "ml-2 block text-sm text-slate-500 font-medium" %>
+              </div>
+            <% end %>
+
+            <div class="pt-4">
+              <%= f.submit "Sign In", 
+                  class: "w-full py-4 px-6 text-white bg-indigo-600 hover:bg-slate-900 font-bold rounded-2xl shadow-lg shadow-indigo-100 transition-all transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer flex items-center justify-center gap-2 group" %>
+            </div>
           </div>
         </div>
       <% end %>
@@ -78,6 +89,23 @@
 </div>
 
 <script>
+function showPasswordStep() {
+  const emailField = document.getElementById('email-field');
+  if (emailField.value.trim() !== '') {
+    document.getElementById('email-step').classList.add('hidden');
+    document.getElementById('password-step').classList.remove('hidden');
+    document.getElementById('password-field').focus();
+  } else {
+    emailField.reportValidity();
+  }
+}
+
+function showEmailStep() {
+  document.getElementById('password-step').classList.add('hidden');
+  document.getElementById('email-step').classList.remove('hidden');
+  document.getElementById('email-field').focus();
+}
+
 function togglePassword(fieldId, iconId) {
   const passwordField = document.getElementById(fieldId);
   const icon = document.getElementById(iconId);

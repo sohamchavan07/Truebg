@@ -13,15 +13,15 @@
       <!-- Progressive Step Indicator -->
       <div class="flex items-center justify-center mb-10">
         <div class="flex items-center gap-4">
-          <div class="w-10 h-10 rounded-full bg-green-500 text-white flex items-center justify-center text-sm font-black shadow-lg shadow-green-100 ring-4 ring-green-50">✓</div>
-          <div class="h-0.5 w-12 bg-green-200 rounded-full"></div>
-          <div class="w-10 h-10 rounded-full bg-indigo-600 text-white flex items-center justify-center text-sm font-black shadow-lg shadow-indigo-200 ring-4 ring-indigo-50 leading-none">2</div>
+          <div class="w-10 h-10 rounded-full bg-indigo-600 text-white flex items-center justify-center text-sm font-black shadow-lg shadow-indigo-200 ring-4 ring-indigo-50 leading-none">1</div>
+          <div class="h-0.5 w-12 bg-slate-100 rounded-full"></div>
+          <div class="w-10 h-10 rounded-full bg-slate-50 text-slate-300 flex items-center justify-center text-sm font-black border-2 border-slate-100">2</div>
           <div class="h-0.5 w-12 bg-slate-100 rounded-full"></div>
           <div class="w-10 h-10 rounded-full bg-slate-50 text-slate-300 flex items-center justify-center text-sm font-black border-2 border-slate-100">3</div>
         </div>
       </div>
 
-      <%= form_with url: verifications_verify_otp_path, method: :post, id: "otp-form", class: "space-y-10" do |f| %>
+      <%= form_with url: verifications_verify_otp_path, method: :post, id: "otp-form", data: { turbo: false }, class: "space-y-10" do |f| %>
         <div class="flex justify-between gap-3 max-w-xs mx-auto">
           <% 5.times do |i| %>
             <%= f.text_field "otp_#{i+1}", 
@@ -40,7 +40,7 @@
           <div class="text-center">
             <p class="text-sm text-slate-400 font-medium tracking-wide">
               Didn't receive code? 
-              <%= link_to "Resend OTP", verifications_send_otp_path(phone: session[:phone]), data: { turbo_method: :post }, class: "text-indigo-600 font-black hover:text-indigo-700 transition-colors underline underline-offset-4 decoration-2 decoration-indigo-100 hover:decoration-indigo-500" %>
+              <%= button_to "Resend OTP", verifications_send_otp_path, params: { phone: session[:phone] }, form: { data: { turbo: false } }, class: "inline text-indigo-600 font-black hover:text-indigo-700 transition-colors underline underline-offset-4 decoration-2 decoration-indigo-100 hover:decoration-indigo-500 bg-transparent border-none cursor-pointer p-0" %>
             </p>
           </div>
         </div>
