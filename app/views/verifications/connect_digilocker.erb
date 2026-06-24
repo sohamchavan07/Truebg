@@ -1,69 +1,80 @@
-<div class="max-w-md mx-auto">
+<div class="max-w-md mx-auto py-12 px-4 animate-fade-in">
   <!-- Header -->
-  <div class="mb-10 text-center">
-    <div class="inline-flex items-center justify-center p-3 bg-indigo-50 rounded-2xl mb-4 shadow-sm border border-indigo-100">
-      <svg class="w-8 h-8 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+  <div class="mb-12 text-center">
+    <div class="inline-flex items-center justify-center p-4 bg-white rounded-3xl shadow-xl shadow-indigo-100 border border-indigo-50 mb-6 group transition-transform hover:scale-110 duration-500">
+      <svg class="w-10 h-10 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
     </div>
-    <h1 class="text-4xl font-extrabold text-gray-900 tracking-tight mb-3">Identity Proof</h1>
-    <p class="text-lg text-gray-500 max-w-sm mx-auto">Connect your DigiLocker to fetch verified identity documents instantly.</p>
+    <h1 class="text-4xl font-black text-slate-900 tracking-tight mb-4">Identity Proof</h1>
+    <p class="text-lg text-slate-500 max-w-sm mx-auto">Connect your DigiLocker to fetch verified identity documents instantly.</p>
   </div>
 
-  <div class="bg-white rounded-[2rem] shadow-xl shadow-gray-200/50 border border-gray-100 overflow-hidden">
+  <div class="bg-white/80 backdrop-blur-xl rounded-[2.5rem] shadow-2xl shadow-indigo-100/50 border border-white overflow-hidden">
     <div class="p-10">
-      <div class="flex items-center justify-center mb-8">
+      <!-- Progressive Step Indicator -->
+      <div class="flex items-center justify-center mb-10">
         <div class="flex items-center gap-4">
-          <div class="w-8 h-8 rounded-full bg-green-500 text-white flex items-center justify-center text-sm font-bold shadow-sm">✓</div>
-          <div class="h-0.5 w-12 bg-green-500"></div>
-          <div class="w-8 h-8 rounded-full bg-green-500 text-white flex items-center justify-center text-sm font-bold shadow-sm">✓</div>
-          <div class="h-0.5 w-12 bg-indigo-500"></div>
-          <div class="w-8 h-8 rounded-full bg-indigo-500 text-white flex items-center justify-center text-sm font-bold shadow-sm">2</div>
-          <div class="h-0.5 w-12 bg-gray-100"></div>
-          <div class="w-8 h-8 rounded-full bg-gray-100 text-gray-400 flex items-center justify-center text-sm font-bold">3</div>
+          <div class="w-10 h-10 rounded-full bg-indigo-600 text-white flex items-center justify-center text-sm font-black shadow-lg shadow-indigo-200 ring-4 ring-indigo-50 leading-none">1</div>
+          <div class="h-0.5 w-12 bg-slate-100 rounded-full"></div>
+          <div class="w-10 h-10 rounded-full bg-slate-50 text-slate-300 flex items-center justify-center text-sm font-black border-2 border-slate-100">2</div>
+          <div class="h-0.5 w-12 bg-slate-100 rounded-full"></div>
+          <div class="w-10 h-10 rounded-full bg-slate-50 text-slate-300 flex items-center justify-center text-sm font-black border-2 border-slate-100">3</div>
         </div>
       </div>
 
-      <div class="bg-gray-50/50 rounded-2xl p-6 mb-8 border border-gray-100">
-        <h3 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-6">Automated Check List</h3>
-        <div class="space-y-5">
-          <div class="flex items-start gap-4">
-            <div class="shrink-0 p-1.5 bg-green-100 rounded-lg text-green-600">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+      <div class="bg-slate-50/50 rounded-3xl p-8 mb-10 border border-slate-100/50">
+        <h3 class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-6">Automated Check List</h3>
+        <div class="space-y-6">
+          <div class="flex items-start gap-4 group">
+            <div class="shrink-0 p-2 bg-green-100 rounded-xl text-green-600 transition-transform group-hover:scale-110">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
             </div>
             <div>
-              <p class="text-sm font-bold text-gray-900 leading-tight">Aadhaar Verification</p>
-              <p class="text-xs text-gray-500 mt-0.5">Real-time authenticity validation</p>
+              <p class="text-sm font-black text-slate-900 leading-tight">Aadhaar Verification</p>
+              <p class="text-xs text-slate-500 mt-1">Real-time authenticity validation</p>
             </div>
           </div>
-          <div class="flex items-start gap-4">
-            <div class="shrink-0 p-1.5 bg-green-100 rounded-lg text-green-600">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+          <div class="flex items-start gap-4 group">
+            <div class="shrink-0 p-2 bg-green-100 rounded-xl text-green-600 transition-transform group-hover:scale-110">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
             </div>
             <div>
-              <p class="text-sm font-bold text-gray-900 leading-tight">PAN Data Extraction</p>
-              <p class="text-xs text-gray-500 mt-0.5">Secure tax record fetching</p>
+              <p class="text-sm font-black text-slate-900 leading-tight">PAN Data Extraction</p>
+              <p class="text-xs text-slate-500 mt-1">Secure tax record fetching</p>
             </div>
           </div>
-          <div class="flex items-start gap-4">
-            <div class="shrink-0 p-1.5 bg-indigo-100 rounded-lg text-indigo-600">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+          <div class="flex items-start gap-4 group">
+            <div class="shrink-0 p-2 bg-indigo-100 rounded-xl text-indigo-600 transition-transform group-hover:scale-110">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
             </div>
             <div>
-              <p class="text-sm font-bold text-gray-900 leading-tight">Instant Decisioning</p>
-              <p class="text-xs text-gray-500 mt-0.5">Machine-driven score generation</p>
+              <p class="text-sm font-black text-slate-900 leading-tight">Instant Decisioning</p>
+              <p class="text-xs text-slate-500 mt-1">Machine-driven score generation</p>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="space-y-4">
-        <%= link_to verifications_primary_details_path, class: "w-full py-4 px-6 text-white bg-indigo-600 hover:bg-indigo-700 font-bold rounded-2xl shadow-lg shadow-indigo-100 transition-all transform hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center gap-2 group" do %>
+      <div class="space-y-6">
+        <%= link_to verifications_primary_details_path, class: "w-full py-5 px-6 text-white bg-indigo-600 hover:bg-indigo-700 font-bold rounded-2xl shadow-lg shadow-indigo-100 transition-all transform hover:-translate-y-1 active:translate-y-0 flex items-center justify-center gap-3 group text-lg" do %>
           Connect DigiLocker
-          <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+          <svg class="w-6 h-6 group-hover:translate-x-1.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
         <% end %>
-        <p class="text-center text-[10px] text-gray-400 px-6 uppercase tracking-wider font-medium">
-          Powered by Gov-Auth API &bull; 256-bit Encrypted
-        </p>
+        <div class="flex items-center justify-center gap-2">
+          <div class="h-px bg-slate-100 flex-1"></div>
+          <p class="text-[10px] text-slate-300 uppercase tracking-widest font-black px-2">Gov-Auth Secure</p>
+          <div class="h-px bg-slate-100 flex-1"></div>
+        </div>
       </div>
     </div>
   </div>
 </div>
+
+<style>
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in {
+  animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+</style>div>
