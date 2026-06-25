@@ -1,10 +1,11 @@
 class VerificationsController < ApplicationController
-  before_action :authenticate_candidate!, except: [ :start, :phone_verification, :send_otp, :otp_verification, :verify_otp ]
+  before_action :authenticate_candidate!, except: [ :start, :consent, :submit_consent, :phone_verification, :send_otp, :otp_verification, :verify_otp ]
   skip_before_action :verify_authenticity_token, only: [ :send_otp, :verify_otp, :submit_verification ]
 
   layout "candidate_flow"
   before_action :set_verification_case
-  before_action :check_if_completed, except: [ :start, :thank_you, :review_profile ]
+  before_action :check_if_completed, except: [ :start, :consent, :submit_consent, :thank_you, :review_profile ]
+  before_action :check_consent, except: [ :start, :consent, :submit_consent ]
 
   def set_verification_case
     @verification_case = current_candidate&.verification_cases&.last
@@ -13,6 +14,12 @@ class VerificationsController < ApplicationController
   def check_if_completed
     if @verification_case&.status == "completed"
       redirect_to candidate_dashboard_path, alert: "Your profile is already submitted and locked for evaluation."
+    end
+  end
+
+  def check_consent
+    if @verification_case && !@verification_case.consent_given?
+      redirect_to verifications_consent_path
     end
   end
 
@@ -25,7 +32,31 @@ class VerificationsController < ApplicationController
       sign_in(@verification_case.candidate)
       @verification_case.update(status: "in_progress") if @verification_case.status == "sent"
     end
-    redirect_to phone_verification_path
+
+    if @verification_case.consent_given?
+      redirect_to phone_verification_path
+    else
+      redirect_to verifications_consent_path
+    end
+  end
+
+  def consent
+    # Renders the consent view
+  end
+
+  def submit_consent
+    if params[:consent_given] == "1" && params[:signature_text].present?
+      @verification_case.update!(
+        consent_given: true,
+        consent_given_at: Time.current,
+        consent_ip_address: request.remote_ip,
+        signature_text: params[:signature_text]
+      )
+      redirect_to phone_verification_path, notice: "Thank you for providing your consent."
+    else
+      flash.now[:alert] = "You must agree to the terms and provide a digital signature to proceed."
+      render :consent, status: :unprocessable_entity
+    end
   end
 
   def phone_verification

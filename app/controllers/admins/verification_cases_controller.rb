@@ -37,8 +37,7 @@ class Admins::VerificationCasesController < Admins::BaseController
     @verification_case.requested_at = Time.current
 
     if @verification_case.save
-      # In a real app, we would send an invitation email here
-      # VerificationMailer.invitation(@verification_case).deliver_later
+      VerificationMailer.invitation(@verification_case).deliver_later
       redirect_to admins_verification_cases_path, notice: "Verification case created and invitation sent!"
     else
       @organizations = Organization.all

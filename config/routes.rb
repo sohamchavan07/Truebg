@@ -24,6 +24,8 @@ Rails.application.routes.draw do
 
   # Verification entry point
   get "v/:token", to: "verifications#start", as: :start_verification
+  get "consent", to: "verifications#consent", as: :verifications_consent
+  post "submit_consent", to: "verifications#submit_consent", as: :verifications_submit_consent
 
   # Phone verification flow
   get "phone_verification", to: "verifications#phone_verification"

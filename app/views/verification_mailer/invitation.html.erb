@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Background Verification Request</h1>
+    <p>Hi <%= @candidate.first_name || 'Candidate' %>,</p>
+    <p><%= @organization.name %> has requested a background verification check.</p>
+    <p>Please click the secure link below to provide your consent and begin the verification process:</p>
+    <p>
+      <a href="<%= @link %>" style="display:inline-block;padding:12px 24px;background-color:#4F46E5;color:white;text-decoration:none;border-radius:6px;">Start Verification</a>
+    </p>
+    <p>This is a secure, single-use link intended only for you.</p>
+    <p>Thank you,<br>The Truebg Team</p>
+  </body>
+</html>

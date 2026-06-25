@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_06_02_192146) do
+ActiveRecord::Schema[8.0].define(version: 2026_06_25_171813) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -80,6 +80,10 @@ ActiveRecord::Schema[8.0].define(version: 2026_06_02_192146) do
     t.datetime "completed_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "consent_given"
+    t.datetime "consent_given_at"
+    t.string "consent_ip_address"
+    t.string "signature_text"
     t.index ["candidate_id"], name: "index_verification_cases_on_candidate_id"
     t.index ["organization_id"], name: "index_verification_cases_on_organization_id"
     t.index ["token"], name: "index_verification_cases_on_token"

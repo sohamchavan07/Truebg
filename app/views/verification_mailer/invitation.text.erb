@@ -1,0 +1,14 @@
+Background Verification Request
+
+Hi <%= @candidate.first_name || 'Candidate' %>,
+
+<%= @organization.name %> has requested a background verification check.
+
+Please navigate to the secure link below to provide your consent and begin the verification process:
+
+<%= @link %>
+
+This is a secure, single-use link intended only for you.
+
+Thank you,
+The Truebg Team
